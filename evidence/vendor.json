@@ -6,7 +6,11 @@
     {
       "id": "VREV-001",
       "signed_off": true,
-      "exceptions": "None in historical sample"
+      "exceptions": "None in historical sample",
+      "reviewed_on": "2025-07-31"
     }
-  ]
+  ],
+  "scope": "C06",
+  "period_start": "2025-07-01",
+  "period_end": "2025-07-31"
 }

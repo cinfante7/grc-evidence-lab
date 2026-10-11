@@ -2,6 +2,6 @@ id,name,collected_on,max_age_days,path,custodian,synthetic,control_id,scope,peri
 E01,Access removal export,2026-10-01,30,evidence/access.json,Identity Lead,True,C01,C01,2026-09-01,2026-09-30
 E02,Audit review worksheet,2026-06-30,30,evidence/logs.json,Security Lead,True,C02,C02,2026-06-01,2026-06-30
 E03,Change register,2026-10-02,30,evidence/changes.json,Engineering Lead,True,C03,C03,2026-09-01,2026-09-30
-E04,Restore exercise record,2026-09-15,90,evidence/restore.json,Operations Lead,True,C04,C04,2026-09-01,2026-09-30
-E05,Incident exercise plan,2026-09-20,365,evidence/incident.json,Security Lead,True,C05,C05,2026-09-01,2026-09-30
-E06,Supplier review worksheet,2025-07-01,365,evidence/vendor.json,Procurement Lead,True,C06,C06,2025-07-01,2025-07-31
+E04,Restore exercise record,2026-10-01,90,evidence/restore.json,Operations Lead,True,C04,C04,2026-09-01,2026-09-30
+E05,Incident exercise plan,2026-10-01,365,evidence/incident.json,Security Lead,True,C05,C05,2026-09-01,2026-09-30
+E06,Supplier review worksheet,2025-07-31,365,evidence/vendor.json,Procurement Lead,True,C06,C06,2025-07-01,2025-07-31

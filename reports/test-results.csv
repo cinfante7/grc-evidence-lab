@@ -1,7 +1,7 @@
 control_id,test_id,evidence_id,risk_id,status,age_days,codes,exceptions,sample_count,criterion,scope
-C01,T01,E01,R01,sample_pass,10,[],[],3,Within 24 hours of separation,All 3 fictional separation events in September 2026
+C01,T01,E01,R01,sample_pass,11,[],[],3,Within 24 hours of separation,All 3 fictional separation events in September 2026
 C02,T02,E02,R02,inconclusive,103,['STALE'],[],2,Weekly review with escalation disposition,All 2 fictional weekly reviews in June 2026
-C03,T03,E03,R03,sample_fail,9,['EXCEPTION'],['CHG-003'],3,Approval recorded before deployment,All 3 fictional deployments in September 2026
-C04,T04,E04,R04,inconclusive,26,['MISSING'],[],1,Quarterly recovery exercise with observed restore result,One requested September 2026 recovery exercise
-C05,T05,E05,R05,not_tested,21,['NOT_TESTED'],[],0,Annual exercise with lessons and assigned actions,Design plan only; no performed exercise
-C06,T06,E06,R06,inconclusive,467,['STALE'],[],1,Annual review of critical supplier evidence and exceptions,One annual review for V01
+C03,T03,E03,R03,sample_fail,11,['EXCEPTION'],['CHG-003'],3,Approval recorded before deployment,All 3 fictional deployments in September 2026
+C04,T04,E04,R04,inconclusive,11,['MISSING'],[],1,Quarterly recovery exercise with observed restore result,One requested September 2026 recovery exercise
+C05,T05,E05,R05,not_tested,11,['NOT_TESTED'],[],0,Annual exercise with lessons and assigned actions,Design plan only; no performed exercise
+C06,T06,E06,R06,inconclusive,437,['STALE'],[],1,Annual review of critical supplier evidence and exceptions,One annual review for V01

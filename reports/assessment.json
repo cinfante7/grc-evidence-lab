@@ -15,7 +15,7 @@
       "evidence_id": "E01",
       "risk_id": "R01",
       "status": "sample_pass",
-      "age_days": 10,
+      "age_days": 11,
       "codes": [],
       "exceptions": [],
       "sample_count": 3,
@@ -43,7 +43,7 @@
       "evidence_id": "E03",
       "risk_id": "R03",
       "status": "sample_fail",
-      "age_days": 9,
+      "age_days": 11,
       "codes": [
         "EXCEPTION"
       ],
@@ -60,7 +60,7 @@
       "evidence_id": "E04",
       "risk_id": "R04",
       "status": "inconclusive",
-      "age_days": 26,
+      "age_days": 11,
       "codes": [
         "MISSING"
       ],
@@ -75,7 +75,7 @@
       "evidence_id": "E05",
       "risk_id": "R05",
       "status": "not_tested",
-      "age_days": 21,
+      "age_days": 11,
       "codes": [
         "NOT_TESTED"
       ],
@@ -90,7 +90,7 @@
       "evidence_id": "E06",
       "risk_id": "R06",
       "status": "inconclusive",
-      "age_days": 467,
+      "age_days": 437,
       "codes": [
         "STALE"
       ],
@@ -145,12 +145,12 @@
     }
   ],
   "evidence_sha256": {
-    "E01": "362dc7b6ee1b831aecb1c4c855f237e37ba1c075706fff5b65ecebbf715b81a7",
-    "E02": "6abdfac246d3bbc81ceaa7bbbf36b3ddaf5c7742b519035593a290c72f7c44db",
-    "E03": "710fe5d35780c02671c8c4064cc629355f43dbdbb9330ed8c4b1df839f3ae1a7",
+    "E01": "e339954eaab0dec0d3325aaa0a38fbcb98557a74d398339f38a937885eacdf9c",
+    "E02": "1521b14d1c2a1c020b74f8d3a36eb3c61578e4cd7f619be4f1858a4286f74ae6",
+    "E03": "55139d6925b99d50eb8f558ee9c7d6f222d3e215ecf56586e40cfdb6cc96493e",
     "E04": null,
-    "E05": "27456755d4b47062cbe7d81ad19a97adde9badcdc02a12659d23e1bc5d81a2a5",
-    "E06": "f772f044a56b22ac7ba2a13766b81b8e4cea18f07fe17f4f993c3668cd6617b9"
+    "E05": "6d2459da6b6a988a12674b00d55c6313e86e4e2b2a817105b28ba6234a455fdc",
+    "E06": "f4e7ddec31dd3baf2251d11b34702e6120c3d455b7015ea3c38a4134227ab221"
   },
   "risk_bands": {
     "critical": 1,

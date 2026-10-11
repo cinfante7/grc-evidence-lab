@@ -17,5 +17,8 @@
       "approved_on": null,
       "deployed_on": "2026-09-18"
     }
-  ]
+  ],
+  "scope": "C03",
+  "period_start": "2026-09-01",
+  "period_end": "2026-09-30"
 }

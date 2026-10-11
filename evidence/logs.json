@@ -4,11 +4,16 @@
   "rows": [
     {
       "id": "LOG-001",
-      "disposition": "No exception"
+      "disposition": "No exception",
+      "reviewed_on": "2026-06-06"
     },
     {
       "id": "LOG-002",
-      "disposition": "Escalation closed"
+      "disposition": "Escalation closed",
+      "reviewed_on": "2026-06-13"
     }
-  ]
+  ],
+  "scope": "C02",
+  "period_start": "2026-06-01",
+  "period_end": "2026-06-30"
 }

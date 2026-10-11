@@ -1,23 +1,26 @@
 # Verification — October 11, 2026
 
-The final release checks were executed on Windows with Python 3.13. See [actual command output](verification-output.txt).
+Final checks executed on Windows with Python 3.13.7. See [actual command output](verification-output.txt).
 
 | Check | Observed result |
 |---|---|
-| Register validation | Exit 0; IDs, links, scoring and declarations valid |
-| Report generation | Exit 0; six control results, five seeded findings |
-| Automated tests | 20 tests, all pass |
-| Committed report reconciliation | Exit 0; assessment JSON and HTML match fresh computation |
-| HTML local links and anchors | 41 resolve; no duplicate anchors |
-| Heuristic secret/personal-data content scan | No matches in project text files |
+| Register and event validation | Exit 0; IDs, scores, content scope, chronology and event consistency valid |
+| Automated tests | 41 tests, all pass |
+| Nonmutating artifact reconciliation | Exit 0; all ten generated artifacts match two isolated deterministic builds |
+| HTML links and anchors | 53 resolve; no duplicate anchors |
+| Heuristic secret/personal-data scan | No matches in 30 project files |
 | Staged diff whitespace check | Completed before private upload |
 
-The mutation suite detects broken/duplicate IDs, scoring and bounds errors, stale evidence boundaries, missing versus insufficient evidence, wrong control/period scope, proposed-control status, unsafe paths, future dates, missing provenance, and unsupported closure. Closure tests cover both failed retest and missing matching reviewer sign-off. A successful closure scenario is confined to a temporary copied fixture and does not close real register actions.
+Regression coverage includes September 1 T01 performed before population end, test before evidence collection, absent completion, retest or population before completion, reviewer/closure reversed chronology, wrong reviewer/control/event/action, failed follow-up sample, reuse of baseline test, initial history deletion or mutation, retroactive artifact correction, old logs with new receipt dates, relabeled periods, wrong vendor identity, out-of-period change rows, undated populations, and tampering with every generated artifact. Comparison detects tampering without rewriting altered files.
 
-Assessment reconciles to: **1 sample_pass, 1 sample_fail, 3 inconclusive, 1 not_tested**. Five findings remain open. No score is reduced because a software test passes.
+The positive closure scenario exists only in a temporary copied fixture. It appends distinct T07/E07/EV07 and review E08 after M02 completion. T03/E03/EV03 and CHG-003's missing approval remain unchanged. The dynamic report then shows four open actions and one closed action. The actual committed baseline keeps all five actions open and its original five gaps.
 
-The content scan is a narrow heuristic for common credential formats, private-key headers, email addresses, government-ID-like patterns and local user paths. No real datasets were imported; manual source review confirmed synthetic fixtures and fictional roles. A clean heuristic scan is not a guarantee that arbitrary sensitive data could never be present.
+Assessment remains **1 sample_pass, 1 sample_fail, 3 inconclusive, 1 not_tested**. Passing automated tests does not reduce risk or establish control effectiveness, regulatory compliance or production security.
 
-Browser tools returned no supported browser for rendering inspection. HTML structure, internal references, local file targets, reconciliation and responsive CSS were checked; visual appearance has not been screenshot-verified. The generated report is designed for direct local opening and uses no external scripts or assets.
+History is editable JSON with prefix, fingerprint, identity and chronology consistency checks. It is not cryptographic immutability, authenticated chain of custody or tamper-proof storage. Coordinated rewriting of all source and baseline files can defeat local checks.
 
-No deployment, AI API, credentials extraction, security probing, new access grants, paid services or modifications to existing projects were used. NIST source retrieval was read-only. The repository starts private; public visibility requires separate owner approval.
+The content scan uses narrow heuristics for common credential formats, private-key headers, email addresses, government-ID-like patterns and local user paths. No real data was imported. A clean scan is not a guarantee against arbitrary sensitive content.
+
+No supported browser was available for rendering inspection. HTML structure, references, local targets, responsive CSS and output reconciliation were checked; visual rendering is not screenshot-verified. No CI configuration is provided; checks run locally.
+
+No deployment, AI API, credentials extraction, operational security tests, new access grants, paid services or changes to existing projects were used. Repository visibility remains private until separate owner approval.

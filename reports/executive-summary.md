@@ -4,7 +4,13 @@ Fictional organization and synthetic records. Software checks and sample results
 
 As of 2026-10-11: {'inconclusive': 3, 'not_tested': 1, 'sample_fail': 1, 'sample_pass': 1}; 5 findings.
 
-Decision: refresh audit review evidence and investigate unapproved CHG-003 first. Obtain recovery exercise evidence next. Keep current risk scores unchanged pending reassessment. Targets are hypothetical. All five actions remain open.
+5 actions open; 0 closed. Current risk scores are held at inherent level; targets are proposed scenarios. Read docs/decision-memo.md as a fixed October 11 baseline memo.
+
+- M01 / C02: P1, Obtain current weekly reviews and escalation dispositions; due 2026-10-18.
+- M02 / C03: P1, Investigate CHG-003 and enforce prior approval; due 2026-10-18.
+- M03 / C04: P1, Perform and document a restore exercise; due 2026-10-25.
+- M05 / C06: P2, Refresh critical supplier assessment; due 2026-11-01.
+- M04 / C05: P2, Approve and conduct incident exercise; due 2026-11-10.
 
 | Finding | Trace | Gap |
 |---|---|---|

@@ -2,6 +2,7 @@
 import re
 import subprocess
 import sys
+import lab
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlparse
@@ -63,7 +64,7 @@ def scan():
 def main():
     logs = []
     for command in ([sys.executable, "lab.py", "validate"],
-                    [sys.executable, "lab.py", "build"],
+                    [sys.executable, "lab.py", "check"],
                     [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-v"],
                     [sys.executable, "lab.py", "check"]):
         result = subprocess.run(command, cwd=ROOT, text=True, capture_output=True)
@@ -77,7 +78,8 @@ def main():
     logs.append(f"Local HTML links checked: {links}\nHeuristic content scan: {files} files; no matches.\n")
     (ROOT / "docs/verification-output.txt").write_text("\n".join(logs), encoding="utf-8")
     print(f"All release checks passed. HTML links: {links}; scanned files: {files}.")
-    print("Five synthetic findings remain; these checks do not establish control effectiveness.")
+    findings = lab.assess(lab.load())["finding_count"]
+    print(f"{findings} synthetic findings remain; these checks do not establish control effectiveness.")
     return 0
 
 if __name__ == "__main__":

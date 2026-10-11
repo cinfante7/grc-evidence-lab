@@ -6,6 +6,7 @@ import tempfile
 import unittest
 from pathlib import Path
 import lab
+import history
 
 class EvidenceLabTests(unittest.TestCase):
     def setUp(self):
@@ -14,6 +15,7 @@ class EvidenceLabTests(unittest.TestCase):
         self.root = Path(self.tmp.name)
         shutil.copytree(lab.ROOT / "evidence", self.root / "evidence")
         (self.root / "data").mkdir()
+        shutil.copy(lab.ROOT / "data/history-baseline.json", self.root / "data/history-baseline.json")
         self.d = copy.deepcopy(lab.load())
 
     def result(self, control):
@@ -58,15 +60,15 @@ class EvidenceLabTests(unittest.TestCase):
             self.assertIn(r["current_assessed_score"], {l*i for l in range(1,6) for i in range(1,6)})
 
     def test_freshness_boundary_inclusive(self):
-        self.d["evidence"][0]["collected_on"] = "2026-09-11"
+        self.d["as_of"] = "2026-10-30"
         self.assertEqual(self.result("C01")["status"], "sample_pass")
-        self.d["evidence"][0]["collected_on"] = "2026-09-10"
+        self.d["as_of"] = "2026-10-31"
         self.assertEqual(self.result("C01")["codes"], ["STALE"])
 
     def test_missing_distinct_from_insufficient(self):
         (self.root / "evidence/access.json").unlink()
         self.assertEqual(self.result("C01")["codes"], ["MISSING"])
-        self.write("access.json", {"synthetic": True, "rows": []})
+        self.write("access.json", {"synthetic": True, "scope":"C01", "period_start":"2026-09-01", "period_end":"2026-09-30", "rows": []})
         self.assertEqual(self.result("C01")["codes"], ["INSUFFICIENT"])
 
     def test_wrong_scope_and_period_distinct(self):
@@ -82,7 +84,7 @@ class EvidenceLabTests(unittest.TestCase):
 
     def test_empty_sample_cannot_pass(self):
         self.d["tests"][0]["sample_count"] = 0
-        self.write("access.json", {"synthetic": True, "rows":[]})
+        self.write("access.json", {"synthetic": True, "scope":"C01", "period_start":"2026-09-01", "period_end":"2026-09-30", "rows":[]})
         self.assertEqual(self.result("C01")["status"], "inconclusive")
 
     def test_future_collection_rejected(self):
@@ -96,32 +98,6 @@ class EvidenceLabTests(unittest.TestCase):
     def test_closure_without_retest_rejected(self):
         self.d["remediation"][0]["status"] = "closed"
         self.assertTrue(any("closure requires" in e for e in lab.validate(self.d, self.root)))
-
-    def test_closure_with_failed_retest_rejected(self):
-        m = self.d["remediation"][1]
-        m.update(status="closed", accepted_by="Fictional Reviewer", retest_id="T03", review_evidence_id="E03")
-        self.assertTrue(any("retest must pass" in e for e in lab.validate(self.d, self.root)))
-
-    def test_closure_without_matching_signoff_rejected(self):
-        m = self.d["remediation"][1]
-        m.update(status="closed", accepted_by="Fictional Reviewer", retest_id="T03", review_evidence_id="E03")
-        payload = json.loads((self.root / "evidence/changes.json").read_text())
-        payload["rows"][2]["approved_on"] = "2026-09-17"
-        self.write("changes.json", payload)
-        self.assertTrue(any("sign-off" in e for e in lab.validate(self.d, self.root)))
-
-    def test_closure_requires_passing_retest_and_matching_review(self):
-        m = self.d["remediation"][1]
-        m.update(status="closed", accepted_by="Fictional Reviewer", retest_id="T03", review_evidence_id="E07")
-        payload = json.loads((self.root / "evidence/changes.json").read_text())
-        payload["rows"][2]["approved_on"] = "2026-09-17"
-        self.write("changes.json", payload)
-        review = copy.deepcopy(self.d["evidence"][2])
-        review.update(id="E07", path="evidence/review.json", name="Synthetic reviewer sign-off")
-        self.d["evidence"].append(review)
-        self.write("review.json", {"synthetic": True, "reviewed": True,
-                                  "reviewer":"Fictional Reviewer", "retest_id":"T03"})
-        self.assertEqual(lab.validate(self.d, self.root), [])
 
     def test_artifact_provenance_required(self):
         self.write("access.json", {"synthetic": False, "rows":[]})

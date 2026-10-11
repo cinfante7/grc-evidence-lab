@@ -211,7 +211,7 @@
     {
       "id": "E04",
       "name": "Restore exercise record",
-      "collected_on": "2026-09-15",
+      "collected_on": "2026-10-01",
       "max_age_days": 90,
       "path": "evidence/restore.json",
       "custodian": "Operations Lead",
@@ -224,7 +224,7 @@
     {
       "id": "E05",
       "name": "Incident exercise plan",
-      "collected_on": "2026-09-20",
+      "collected_on": "2026-10-01",
       "max_age_days": 365,
       "path": "evidence/incident.json",
       "custodian": "Security Lead",
@@ -237,7 +237,7 @@
     {
       "id": "E06",
       "name": "Supplier review worksheet",
-      "collected_on": "2025-07-01",
+      "collected_on": "2025-07-31",
       "max_age_days": 365,
       "path": "evidence/vendor.json",
       "custodian": "Procurement Lead",
@@ -264,7 +264,9 @@
       "period_start": "2026-09-01",
       "period_end": "2026-09-30",
       "criterion": "Within 24 hours of separation",
-      "owner": "Assurance Reviewer (fictional role)"
+      "owner": "Assurance Reviewer (fictional role)",
+      "performed_at": "2026-10-11T12:00:00Z",
+      "event_id": "EV01"
     },
     {
       "id": "T02",
@@ -281,7 +283,9 @@
       "period_start": "2026-06-01",
       "period_end": "2026-06-30",
       "criterion": "Weekly review with escalation disposition",
-      "owner": "Assurance Reviewer (fictional role)"
+      "owner": "Assurance Reviewer (fictional role)",
+      "performed_at": "2026-10-11T12:00:00Z",
+      "event_id": "EV02"
     },
     {
       "id": "T03",
@@ -298,7 +302,9 @@
       "period_start": "2026-09-01",
       "period_end": "2026-09-30",
       "criterion": "Approval recorded before deployment",
-      "owner": "Assurance Reviewer (fictional role)"
+      "owner": "Assurance Reviewer (fictional role)",
+      "performed_at": "2026-10-11T12:00:00Z",
+      "event_id": "EV03"
     },
     {
       "id": "T04",
@@ -315,7 +321,9 @@
       "period_start": "2026-09-01",
       "period_end": "2026-09-30",
       "criterion": "Quarterly recovery exercise with observed restore result",
-      "owner": "Assurance Reviewer (fictional role)"
+      "owner": "Assurance Reviewer (fictional role)",
+      "performed_at": "2026-10-11T12:00:00Z",
+      "event_id": "EV04"
     },
     {
       "id": "T05",
@@ -332,7 +340,9 @@
       "period_start": "2026-09-01",
       "period_end": "2026-09-30",
       "criterion": "Annual exercise with lessons and assigned actions",
-      "owner": "Assurance Reviewer (fictional role)"
+      "owner": "Assurance Reviewer (fictional role)",
+      "performed_at": null,
+      "event_id": "EV05"
     },
     {
       "id": "T06",
@@ -349,7 +359,9 @@
       "period_start": "2025-07-01",
       "period_end": "2025-07-31",
       "criterion": "Annual review of critical supplier evidence and exceptions",
-      "owner": "Assurance Reviewer (fictional role)"
+      "owner": "Assurance Reviewer (fictional role)",
+      "performed_at": "2026-10-11T12:00:00Z",
+      "event_id": "EV06"
     }
   ],
   "remediation": [
@@ -363,7 +375,11 @@
       "action": "Obtain current weekly reviews and escalation dispositions",
       "closure_criteria": "Fresh evidence and repeat T02 with no unexplained exceptions",
       "status": "open",
-      "accepted_by": null
+      "accepted_by": null,
+      "completed_at": null,
+      "retest_event_id": null,
+      "reviewed_at": null,
+      "closed_at": null
     },
     {
       "id": "M02",
@@ -375,7 +391,11 @@
       "action": "Investigate CHG-003 and enforce prior approval",
       "closure_criteria": "Document root cause, approval gate and fresh follow-up sample passing T03",
       "status": "open",
-      "accepted_by": null
+      "accepted_by": null,
+      "completed_at": null,
+      "retest_event_id": null,
+      "reviewed_at": null,
+      "closed_at": null
     },
     {
       "id": "M03",
@@ -387,7 +407,11 @@
       "action": "Perform and document a restore exercise",
       "closure_criteria": "Observed restore timings, scope and reviewer sign-off support T04",
       "status": "open",
-      "accepted_by": null
+      "accepted_by": null,
+      "completed_at": null,
+      "retest_event_id": null,
+      "reviewed_at": null,
+      "closed_at": null
     },
     {
       "id": "M04",
@@ -399,7 +423,11 @@
       "action": "Approve and conduct incident exercise",
       "closure_criteria": "Performed exercise, lessons, assigned actions and T05 review",
       "status": "open",
-      "accepted_by": null
+      "accepted_by": null,
+      "completed_at": null,
+      "retest_event_id": null,
+      "reviewed_at": null,
+      "closed_at": null
     },
     {
       "id": "M05",
@@ -411,7 +439,11 @@
       "action": "Refresh critical supplier assessment",
       "closure_criteria": "Current supplier review, exceptions and approval support T06",
       "status": "open",
-      "accepted_by": null
+      "accepted_by": null,
+      "completed_at": null,
+      "retest_event_id": null,
+      "reviewed_at": null,
+      "closed_at": null
     }
   ],
   "vendors": [
@@ -426,6 +458,462 @@
       "owner": "Procurement Lead",
       "decision": "Conditional continuation pending refreshed review",
       "decision_basis": "Scenario judgment; no real contract or vendor assessment"
+    }
+  ],
+  "assessed_at": "2026-10-11T15:00:00Z",
+  "test_events": [
+    {
+      "id": "EV01",
+      "sequence": 1,
+      "previous_event_id": null,
+      "kind": "initial",
+      "remediation_id": null,
+      "control_id": "C01",
+      "test_id": "T01",
+      "evidence_id": "E01",
+      "assessed_at": "2026-10-11T15:00:00Z",
+      "performed_at": "2026-10-11T12:00:00Z",
+      "test_snapshot": {
+        "id": "T01",
+        "control_id": "C01",
+        "evidence_id": "E01",
+        "method": "examine synthetic artifact",
+        "sample_scope": "All 3 fictional separation events in September 2026",
+        "procedure": "Verify each event has removal_hours <= 24",
+        "rule": "access",
+        "performed_on": "2026-10-11",
+        "population_count": 3,
+        "sample_count": 3,
+        "sample_rationale": "Full fictional population for this limited fixture; no statistical or real-world inference.",
+        "period_start": "2026-09-01",
+        "period_end": "2026-09-30",
+        "criterion": "Within 24 hours of separation",
+        "owner": "Assurance Reviewer (fictional role)",
+        "performed_at": "2026-10-11T12:00:00Z",
+        "event_id": "EV01"
+      },
+      "evidence_snapshot": {
+        "id": "E01",
+        "name": "Access removal export",
+        "collected_on": "2026-10-01",
+        "max_age_days": 30,
+        "path": "evidence/access.json",
+        "custodian": "Identity Lead",
+        "synthetic": true,
+        "control_id": "C01",
+        "scope": "C01",
+        "period_start": "2026-09-01",
+        "period_end": "2026-09-30"
+      },
+      "result_snapshot": {
+        "control_id": "C01",
+        "test_id": "T01",
+        "evidence_id": "E01",
+        "risk_id": "R01",
+        "status": "sample_pass",
+        "age_days": 11,
+        "codes": [],
+        "exceptions": [],
+        "sample_count": 3,
+        "criterion": "Within 24 hours of separation",
+        "scope": "All 3 fictional separation events in September 2026"
+      },
+      "artifact_snapshot": {
+        "synthetic": true,
+        "period": "September 2026",
+        "rows": [
+          {
+            "id": "SEP-001",
+            "removal_hours": 4,
+            "occurred_on": "2026-09-05"
+          },
+          {
+            "id": "SEP-002",
+            "removal_hours": 16,
+            "occurred_on": "2026-09-14"
+          },
+          {
+            "id": "SEP-003",
+            "removal_hours": 24,
+            "occurred_on": "2026-09-28"
+          }
+        ],
+        "scope": "C01",
+        "period_start": "2026-09-01",
+        "period_end": "2026-09-30"
+      },
+      "artifact_fingerprint": "a6ae556ac988e37aa270a33451b4c8739ee7c4102fc99bda56a228047657c21f"
+    },
+    {
+      "id": "EV02",
+      "sequence": 2,
+      "previous_event_id": "EV01",
+      "kind": "initial",
+      "remediation_id": null,
+      "control_id": "C02",
+      "test_id": "T02",
+      "evidence_id": "E02",
+      "assessed_at": "2026-10-11T15:00:00Z",
+      "performed_at": "2026-10-11T12:00:00Z",
+      "test_snapshot": {
+        "id": "T02",
+        "control_id": "C02",
+        "evidence_id": "E02",
+        "method": "examine synthetic artifact",
+        "sample_scope": "All 2 fictional weekly reviews in June 2026",
+        "procedure": "Verify each review includes disposition",
+        "rule": "logs",
+        "performed_on": "2026-10-11",
+        "population_count": 2,
+        "sample_count": 2,
+        "sample_rationale": "Full fictional population for this limited fixture; no statistical or real-world inference.",
+        "period_start": "2026-06-01",
+        "period_end": "2026-06-30",
+        "criterion": "Weekly review with escalation disposition",
+        "owner": "Assurance Reviewer (fictional role)",
+        "performed_at": "2026-10-11T12:00:00Z",
+        "event_id": "EV02"
+      },
+      "evidence_snapshot": {
+        "id": "E02",
+        "name": "Audit review worksheet",
+        "collected_on": "2026-06-30",
+        "max_age_days": 30,
+        "path": "evidence/logs.json",
+        "custodian": "Security Lead",
+        "synthetic": true,
+        "control_id": "C02",
+        "scope": "C02",
+        "period_start": "2026-06-01",
+        "period_end": "2026-06-30"
+      },
+      "result_snapshot": {
+        "control_id": "C02",
+        "test_id": "T02",
+        "evidence_id": "E02",
+        "risk_id": "R02",
+        "status": "inconclusive",
+        "age_days": 103,
+        "codes": [
+          "STALE"
+        ],
+        "exceptions": [],
+        "sample_count": 2,
+        "criterion": "Weekly review with escalation disposition",
+        "scope": "All 2 fictional weekly reviews in June 2026"
+      },
+      "artifact_snapshot": {
+        "synthetic": true,
+        "period": "June 2026",
+        "rows": [
+          {
+            "id": "LOG-001",
+            "disposition": "No exception",
+            "reviewed_on": "2026-06-06"
+          },
+          {
+            "id": "LOG-002",
+            "disposition": "Escalation closed",
+            "reviewed_on": "2026-06-13"
+          }
+        ],
+        "scope": "C02",
+        "period_start": "2026-06-01",
+        "period_end": "2026-06-30"
+      },
+      "artifact_fingerprint": "c302c598956cb23551cf28cf550892c38507440bda3f3a5d9e7355297a427bd6"
+    },
+    {
+      "id": "EV03",
+      "sequence": 3,
+      "previous_event_id": "EV02",
+      "kind": "initial",
+      "remediation_id": null,
+      "control_id": "C03",
+      "test_id": "T03",
+      "evidence_id": "E03",
+      "assessed_at": "2026-10-11T15:00:00Z",
+      "performed_at": "2026-10-11T12:00:00Z",
+      "test_snapshot": {
+        "id": "T03",
+        "control_id": "C03",
+        "evidence_id": "E03",
+        "method": "examine synthetic artifact",
+        "sample_scope": "All 3 fictional deployments in September 2026",
+        "procedure": "Verify approval exists and approval precedes deployment",
+        "rule": "changes",
+        "performed_on": "2026-10-11",
+        "population_count": 3,
+        "sample_count": 3,
+        "sample_rationale": "Full fictional population for this limited fixture; no statistical or real-world inference.",
+        "period_start": "2026-09-01",
+        "period_end": "2026-09-30",
+        "criterion": "Approval recorded before deployment",
+        "owner": "Assurance Reviewer (fictional role)",
+        "performed_at": "2026-10-11T12:00:00Z",
+        "event_id": "EV03"
+      },
+      "evidence_snapshot": {
+        "id": "E03",
+        "name": "Change register",
+        "collected_on": "2026-10-02",
+        "max_age_days": 30,
+        "path": "evidence/changes.json",
+        "custodian": "Engineering Lead",
+        "synthetic": true,
+        "control_id": "C03",
+        "scope": "C03",
+        "period_start": "2026-09-01",
+        "period_end": "2026-09-30"
+      },
+      "result_snapshot": {
+        "control_id": "C03",
+        "test_id": "T03",
+        "evidence_id": "E03",
+        "risk_id": "R03",
+        "status": "sample_fail",
+        "age_days": 11,
+        "codes": [
+          "EXCEPTION"
+        ],
+        "exceptions": [
+          "CHG-003"
+        ],
+        "sample_count": 3,
+        "criterion": "Approval recorded before deployment",
+        "scope": "All 3 fictional deployments in September 2026"
+      },
+      "artifact_snapshot": {
+        "synthetic": true,
+        "period": "September 2026",
+        "rows": [
+          {
+            "id": "CHG-001",
+            "approved_on": "2026-09-02",
+            "deployed_on": "2026-09-03"
+          },
+          {
+            "id": "CHG-002",
+            "approved_on": "2026-09-09",
+            "deployed_on": "2026-09-10"
+          },
+          {
+            "id": "CHG-003",
+            "approved_on": null,
+            "deployed_on": "2026-09-18"
+          }
+        ],
+        "scope": "C03",
+        "period_start": "2026-09-01",
+        "period_end": "2026-09-30"
+      },
+      "artifact_fingerprint": "214bc92370d755294182ba17c9ef7f108ae5887abb6f6d54adef81d21e288582"
+    },
+    {
+      "id": "EV04",
+      "sequence": 4,
+      "previous_event_id": "EV03",
+      "kind": "initial",
+      "remediation_id": null,
+      "control_id": "C04",
+      "test_id": "T04",
+      "evidence_id": "E04",
+      "assessed_at": "2026-10-11T15:00:00Z",
+      "performed_at": "2026-10-11T12:00:00Z",
+      "test_snapshot": {
+        "id": "T04",
+        "control_id": "C04",
+        "evidence_id": "E04",
+        "method": "examine synthetic artifact",
+        "sample_scope": "One requested September 2026 recovery exercise",
+        "procedure": "Verify observed restore result meets stated objective",
+        "rule": "restore",
+        "performed_on": "2026-10-11",
+        "population_count": 1,
+        "sample_count": 1,
+        "sample_rationale": "Full fictional population for this limited fixture; no statistical or real-world inference.",
+        "period_start": "2026-09-01",
+        "period_end": "2026-09-30",
+        "criterion": "Quarterly recovery exercise with observed restore result",
+        "owner": "Assurance Reviewer (fictional role)",
+        "performed_at": "2026-10-11T12:00:00Z",
+        "event_id": "EV04"
+      },
+      "evidence_snapshot": {
+        "id": "E04",
+        "name": "Restore exercise record",
+        "collected_on": "2026-10-01",
+        "max_age_days": 90,
+        "path": "evidence/restore.json",
+        "custodian": "Operations Lead",
+        "synthetic": true,
+        "control_id": "C04",
+        "scope": "C04",
+        "period_start": "2026-09-01",
+        "period_end": "2026-09-30"
+      },
+      "result_snapshot": {
+        "control_id": "C04",
+        "test_id": "T04",
+        "evidence_id": "E04",
+        "risk_id": "R04",
+        "status": "inconclusive",
+        "age_days": 11,
+        "codes": [
+          "MISSING"
+        ],
+        "exceptions": [],
+        "sample_count": 1,
+        "criterion": "Quarterly recovery exercise with observed restore result",
+        "scope": "One requested September 2026 recovery exercise"
+      },
+      "artifact_snapshot": null,
+      "artifact_fingerprint": null
+    },
+    {
+      "id": "EV05",
+      "sequence": 5,
+      "previous_event_id": "EV04",
+      "kind": "initial",
+      "remediation_id": null,
+      "control_id": "C05",
+      "test_id": "T05",
+      "evidence_id": "E05",
+      "assessed_at": "2026-10-11T15:00:00Z",
+      "performed_at": null,
+      "test_snapshot": {
+        "id": "T05",
+        "control_id": "C05",
+        "evidence_id": "E05",
+        "method": "examine synthetic artifact",
+        "sample_scope": "Design plan only; no performed exercise",
+        "procedure": "Verify performed exercise and action ownership",
+        "rule": "incident",
+        "performed_on": null,
+        "population_count": 0,
+        "sample_count": 0,
+        "sample_rationale": "Full fictional population for this limited fixture; no statistical or real-world inference.",
+        "period_start": "2026-09-01",
+        "period_end": "2026-09-30",
+        "criterion": "Annual exercise with lessons and assigned actions",
+        "owner": "Assurance Reviewer (fictional role)",
+        "performed_at": null,
+        "event_id": "EV05"
+      },
+      "evidence_snapshot": {
+        "id": "E05",
+        "name": "Incident exercise plan",
+        "collected_on": "2026-10-01",
+        "max_age_days": 365,
+        "path": "evidence/incident.json",
+        "custodian": "Security Lead",
+        "synthetic": true,
+        "control_id": "C05",
+        "scope": "C05",
+        "period_start": "2026-09-01",
+        "period_end": "2026-09-30"
+      },
+      "result_snapshot": {
+        "control_id": "C05",
+        "test_id": "T05",
+        "evidence_id": "E05",
+        "risk_id": "R05",
+        "status": "not_tested",
+        "age_days": 11,
+        "codes": [
+          "NOT_TESTED"
+        ],
+        "exceptions": [],
+        "sample_count": 0,
+        "criterion": "Annual exercise with lessons and assigned actions",
+        "scope": "Design plan only; no performed exercise"
+      },
+      "artifact_snapshot": {
+        "synthetic": true,
+        "performed": false,
+        "plan": "Roles drafted; exercise proposed",
+        "rows": [],
+        "scope": "C05",
+        "period_start": "2026-09-01",
+        "period_end": "2026-09-30"
+      },
+      "artifact_fingerprint": "0fdf5474b95dacb411b7599fe0176411400546f322ad4669e3076dff09671336"
+    },
+    {
+      "id": "EV06",
+      "sequence": 6,
+      "previous_event_id": "EV05",
+      "kind": "initial",
+      "remediation_id": null,
+      "control_id": "C06",
+      "test_id": "T06",
+      "evidence_id": "E06",
+      "assessed_at": "2026-10-11T15:00:00Z",
+      "performed_at": "2026-10-11T12:00:00Z",
+      "test_snapshot": {
+        "id": "T06",
+        "control_id": "C06",
+        "evidence_id": "E06",
+        "method": "examine synthetic artifact",
+        "sample_scope": "One annual review for V01",
+        "procedure": "Verify reviewer sign-off and exception treatment",
+        "rule": "vendor",
+        "performed_on": "2026-10-11",
+        "population_count": 1,
+        "sample_count": 1,
+        "sample_rationale": "Full fictional population for this limited fixture; no statistical or real-world inference.",
+        "period_start": "2025-07-01",
+        "period_end": "2025-07-31",
+        "criterion": "Annual review of critical supplier evidence and exceptions",
+        "owner": "Assurance Reviewer (fictional role)",
+        "performed_at": "2026-10-11T12:00:00Z",
+        "event_id": "EV06"
+      },
+      "evidence_snapshot": {
+        "id": "E06",
+        "name": "Supplier review worksheet",
+        "collected_on": "2025-07-31",
+        "max_age_days": 365,
+        "path": "evidence/vendor.json",
+        "custodian": "Procurement Lead",
+        "synthetic": true,
+        "control_id": "C06",
+        "scope": "C06",
+        "period_start": "2025-07-01",
+        "period_end": "2025-07-31"
+      },
+      "result_snapshot": {
+        "control_id": "C06",
+        "test_id": "T06",
+        "evidence_id": "E06",
+        "risk_id": "R06",
+        "status": "inconclusive",
+        "age_days": 437,
+        "codes": [
+          "STALE"
+        ],
+        "exceptions": [],
+        "sample_count": 1,
+        "criterion": "Annual review of critical supplier evidence and exceptions",
+        "scope": "One annual review for V01"
+      },
+      "artifact_snapshot": {
+        "synthetic": true,
+        "vendor_id": "V01",
+        "period": "July 2025",
+        "rows": [
+          {
+            "id": "VREV-001",
+            "signed_off": true,
+            "exceptions": "None in historical sample",
+            "reviewed_on": "2025-07-31"
+          }
+        ],
+        "scope": "C06",
+        "period_start": "2025-07-01",
+        "period_end": "2025-07-31"
+      },
+      "artifact_fingerprint": "b77f96b509e899456afddd5b3693216ffc853c9dfebc0917b1b2d6886ab03071"
     }
   ]
 }

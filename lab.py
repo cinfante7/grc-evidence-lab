@@ -4,6 +4,10 @@ import csv
 import hashlib
 import html
 import json
+import copy
+import tempfile
+import shutil
+import history
 from collections import Counter
 from datetime import date
 from pathlib import Path
@@ -26,9 +30,11 @@ def validate(d, root=ROOT):
     errors = []
     indexes = {}
     as_of = date.fromisoformat(d["as_of"])
+    assessed_at = history.timestamp(d["assessed_at"])
     def require(condition, message):
         if not condition:
             errors.append(message)
+    require(assessed_at.date() == as_of, "Assessment date/timestamp mismatch")
     for table in TABLES:
         rows = d[table]
         indexes[table] = {r["id"]: r for r in rows}
@@ -64,42 +70,117 @@ def validate(d, root=ROOT):
         require(bool(t["sample_rationale"]) and bool(t["criterion"]), f'{t["id"]}: sample basis/criterion missing')
         require(t["rule"] in ("access", "logs", "changes", "restore", "incident", "vendor"), f'{t["id"]}: unsupported test rule')
         if t["performed_on"]:
-            require(date.fromisoformat(t["performed_on"]) <= as_of, f'{t["id"]}: future test')
+            performed = history.timestamp(t["performed_at"])
+            ev = indexes["evidence"][t["evidence_id"]]
+            require(end <= performed.date() <= as_of, f'{t["id"]}: test chronology outside population/assessment dates')
+            require(date.fromisoformat(ev["collected_on"]) <= performed.date(), f'{t["id"]}: test precedes evidence collection')
+            require(performed.date().isoformat() == t["performed_on"] and performed <= assessed_at,
+                    f'{t["id"]}: performed date/timestamp mismatch or future test')
+        else:
+            require(t["performed_at"] is None, f'{t["id"]}: unperformed test has timestamp')
     for e in d["evidence"]:
         path = (root / e["path"]).resolve()
         require(path.is_relative_to((root / "evidence").resolve()), f'{e["id"]}: unsafe evidence path')
         require(e["synthetic"] is True, f'{e["id"]}: synthetic flag missing')
         require(type(e["max_age_days"]) is int and e["max_age_days"] > 0, f'{e["id"]}: invalid freshness policy')
         require(date.fromisoformat(e["collected_on"]) <= as_of, f'{e["id"]}: future collection')
-        require(date.fromisoformat(e["period_start"]) <= date.fromisoformat(e["period_end"]), f'{e["id"]}: invalid evidence period')
+        require(date.fromisoformat(e["period_start"]) <= date.fromisoformat(e["period_end"])
+                <= date.fromisoformat(e["collected_on"]), f'{e["id"]}: invalid evidence period/collection chronology')
     for m in d["remediation"]:
         c = indexes["controls"][m["control_id"]]
         require(m["risk_id"] == c["risk_id"], f'{m["id"]}: remediation risk mismatch')
         require(m["status"] in ("open", "closed"), f'{m["id"]}: unknown remediation status')
         require(m["priority"] in ("P1", "P2", "P3"), f'{m["id"]}: invalid priority')
+        if m.get("completed_at"):
+            require(history.timestamp(m["completed_at"]) <= assessed_at, f'{m["id"]}: future remediation completion')
         if m["status"] == "closed":
             retest = indexes["tests"].get(m.get("retest_id"))
             review = indexes["evidence"].get(m.get("review_evidence_id"))
-            require(bool(m.get("accepted_by")) and bool(retest) and bool(review), f'{m["id"]}: closure requires retest and review evidence')
-            if retest and review:
-                require(retest["control_id"] == c["id"] and retest["performed_on"] is not None,
-                        f'{m["id"]}: invalid retest scope')
-                assessment = assess(d, root)
-                result = next(x for x in assessment["results"] if x["control_id"] == c["id"])
-                require(result["status"] == "sample_pass" and result["test_id"] == retest["id"],
-                        f'{m["id"]}: retest must pass')
-                review_path = root / review["path"]
-                require(review_path.is_file() and review["scope"] == c["id"]
-                        and (as_of - date.fromisoformat(review["collected_on"])).days <= review["max_age_days"],
-                        f'{m["id"]}: review evidence missing, stale or wrong scope')
-                if review_path.is_file():
-                    signoff = json.loads(review_path.read_text(encoding="utf-8"))
-                    require(signoff.get("reviewed") is True and signoff.get("reviewer") == m["accepted_by"]
-                            and signoff.get("retest_id") == retest["id"],
-                            f'{m["id"]}: review artifact lacks matching retest sign-off')
+            event = next((e for e in d.get("test_events", []) if e["id"] == m.get("retest_event_id")), None)
+            required = all(m.get(k) for k in ("completed_at", "reviewed_at", "closed_at", "accepted_by"))
+            require(required and bool(retest) and bool(review) and bool(event),
+                    f'{m["id"]}: closure requires completion, retest event, review and closure timestamps')
+            if not (required and retest and review and event):
+                continue
+            require(retest["control_id"] == c["id"] and retest["id"] == c["test_id"]
+                    and event["control_id"] == c["id"] and event["test_id"] == retest["id"]
+                    and event["evidence_id"] == retest["evidence_id"] == c["evidence_id"]
+                    and event["id"] == retest["event_id"] and event["kind"] == "retest"
+                    and event["remediation_id"] == m["id"], f'{m["id"]}: invalid retest scope/identity')
+            require(review["scope"] == review["control_id"] == c["id"],
+                    f'{m["id"]}: review control scope mismatch')
+            if not retest["performed_at"]:
+                errors.append(f'{m["id"]}: retest not performed')
+                continue
+            complete, performed, reviewed, closed = map(history.timestamp,
+                (m["completed_at"], retest["performed_at"], m["reviewed_at"], m["closed_at"]))
+            require(complete < performed < reviewed <= closed <= assessed_at,
+                    f'{m["id"]}: closure chronology must follow completion, retest, review')
+            require(history.timestamp(event["assessed_at"]) <= reviewed,
+                    f'{m["id"]}: review precedes retest assessment')
+            assessment = assess(d, root)
+            result = next(x for x in assessment["results"] if x["control_id"] == c["id"])
+            require(result["status"] == "sample_pass" and result["test_id"] == retest["id"],
+                    f'{m["id"]}: retest must pass')
+            review_path = (root / review["path"]).resolve()
+            safe = review_path.is_relative_to((root / "evidence").resolve())
+            require(safe and review_path.is_file() and review["scope"] == c["id"]
+                    and review["collected_on"] == reviewed.date().isoformat()
+                    and (as_of - date.fromisoformat(review["collected_on"])).days <= review["max_age_days"],
+                    f'{m["id"]}: review evidence missing, stale or wrong scope/date')
+            if safe and review_path.is_file():
+                signoff = json.loads(review_path.read_text(encoding="utf-8"))
+                require(signoff.get("synthetic") is True and signoff.get("reviewed") is True
+                        and signoff.get("reviewer") == m["accepted_by"]
+                        and signoff.get("retest_id") == retest["id"]
+                        and signoff.get("retest_event_id") == event["id"]
+                        and signoff.get("remediation_id") == m["id"]
+                        and signoff.get("control_id") == c["id"]
+                        and signoff.get("reviewed_at") == m["reviewed_at"],
+                        f'{m["id"]}: review artifact lacks matching retest sign-off')
     for v in d["vendors"]:
         require(v["risk_id"] == indexes["controls"][v["control_id"]]["risk_id"], f'{v["id"]}: vendor risk mismatch')
+    if not errors:
+        errors.extend(history.validate_events(d, root, assess(d, root)))
     return errors
+
+def artifact_gates(payload, c, e, t, d):
+    """Metadata is insufficient: examine period, identity and dated population rows."""
+    if payload is None:
+        return []
+    codes = []
+    start, end = payload.get("period_start"), payload.get("period_end")
+    if payload.get("scope") != c["id"] or not start or not end:
+        return ["OUT_OF_SCOPE"]
+    try:
+        date.fromisoformat(start)
+        date.fromisoformat(end)
+    except (TypeError, ValueError):
+        return ["OUT_OF_SCOPE"]
+    if (start > end or start > t["period_start"] or end < t["period_end"]
+            or start != e["period_start"] or end != e["period_end"]):
+        codes.append("OUT_OF_SCOPE")
+    if t["rule"] == "vendor":
+        vendor_ids = {v["id"] for v in d["vendors"] if v["control_id"] == c["id"]}
+        if payload.get("vendor_id") not in vendor_ids:
+            codes.append("OUT_OF_SCOPE")
+    field = {"access":"occurred_on", "logs":"reviewed_on", "changes":"deployed_on",
+             "restore":"exercised_on", "incident":"exercised_on", "vendor":"reviewed_on"}[t["rule"]]
+    for row in payload.get("rows", []):
+        when = row.get(field)
+        try:
+            date.fromisoformat(when)
+        except (TypeError, ValueError):
+            codes.append("INSUFFICIENT")
+            continue
+        if not t["period_start"] <= when <= t["period_end"] or not start <= when <= end:
+            codes.append("OUT_OF_SCOPE")
+        if t["rule"] == "changes" and row.get("approved_on"):
+            try:
+                date.fromisoformat(row["approved_on"])
+            except (TypeError, ValueError):
+                codes.append("INSUFFICIENT")
+    return list(dict.fromkeys(codes))
 
 def assess(d, root=ROOT):
     as_of = date.fromisoformat(d["as_of"])
@@ -108,7 +189,7 @@ def assess(d, root=ROOT):
     results, findings = [], []
     for c in d["controls"]:
         e, t = ev[c["evidence_id"]], tests[c["test_id"]]
-        age = (as_of - date.fromisoformat(e["collected_on"])).days
+        age = (as_of - date.fromisoformat(min(e["collected_on"], e["period_end"]))).days
         path = root / e["path"]
         codes, exceptions = [], []
         payload = None
@@ -118,6 +199,13 @@ def assess(d, root=ROOT):
             payload = json.loads(path.read_text(encoding="utf-8"))
             if payload.get("synthetic") is not True:
                 raise ValueError(f'{e["id"]}: artifact lacks synthetic provenance')
+        codes.extend(artifact_gates(payload, c, e, t, d))
+        actual_end = payload.get("period_end", e["period_end"]) if payload else e["period_end"]
+        try:
+            date.fromisoformat(actual_end)
+        except (TypeError, ValueError):
+            actual_end = e["period_end"]
+        age = (as_of - date.fromisoformat(min(e["collected_on"], e["period_end"], t["period_end"], actual_end))).days
         if e["scope"] != c["id"] or e["period_start"] > t["period_start"] or e["period_end"] < t["period_end"]:
             codes.append("OUT_OF_SCOPE")
         if age > e["max_age_days"]:
@@ -149,6 +237,7 @@ def assess(d, root=ROOT):
                         exceptions.append(r["id"])
                 if exceptions:
                     codes.append("EXCEPTION")
+        codes = list(dict.fromkeys(codes))
         status = ("not_tested" if "NOT_TESTED" in codes else "inconclusive"
                   if any(x in codes for x in ("MISSING", "STALE", "OUT_OF_SCOPE", "INSUFFICIENT"))
                   else "sample_fail" if exceptions else "sample_pass")
@@ -181,6 +270,18 @@ def table(headers, rows):
 def render(d, a):
     risks = {r["id"]: r for r in d["risks"]}
     controls = {c["id"]: c for c in d["controls"]}
+    open_actions = sorted((m for m in d["remediation"] if m["status"] == "open"),
+                          key=lambda m:(m["priority"],m["due_on"],m["id"]))
+    closed_count = sum(m["status"] == "closed" for m in d["remediation"])
+    action_brief = "<ul>" + "".join(f'<li>{link(m["id"])} · {esc(m["priority"])} · {esc(m["action"])} · due {esc(m["due_on"])}</li>'
+                                    for m in open_actions) + "</ul>" if open_actions else "<p>No open actions recorded.</p>"
+    history_rows = [[esc(event["id"]), link(event["control_id"]), esc(event["test_id"]),
+                     esc(event["kind"]), esc(event["performed_at"] or "not performed"),
+                     esc(event["result_snapshot"]["status"]), esc(event["remediation_id"] or "none")]
+                    for event in d["test_events"]]
+    vendor_rows = [[f'<span id="{v["id"]}">{esc(v["id"])}</span>', esc(v["name"]), esc(v["criticality"]),
+                   link(v["risk_id"])+" / "+link(v["control_id"])+" / "+link(v["evidence_id"]),
+                   esc(v["decision"]), esc(v["decision_basis"])] for v in d["vendors"]]
     sections = []
     for r in a["results"]:
         c = controls[r["control_id"]]
@@ -203,7 +304,8 @@ def render(d, a):
                 '<code>'+esc((a["evidence_sha256"][e["id"]] or "absent")[:16])+'</code>'] for e in d["evidence"]]
     rem_rows = [[f'<span id="{m["id"]}">{m["id"]}</span>', link(m["control_id"])+' / '+link(m["risk_id"]),
                  esc(m["priority"]), esc(m["action"]), esc(m["owner"]), esc(m["due_on"]),
-                 esc(m["closure_criteria"])] for m in sorted(d["remediation"], key=lambda x:(x["priority"],x["due_on"],x["id"]))]
+                 esc(m["closure_criteria"]), esc(m["status"]), esc(m.get("completed_at") or "none"),
+                 esc(m.get("retest_event_id") or "none"), esc(m.get("reviewed_at") or "none")] for m in sorted(d["remediation"], key=lambda x:(x["priority"],x["due_on"],x["id"]))]
     counts = ''.join(f'<div class="metric"><strong>{n}</strong><span>{esc(k.replace("_"," "))}</span></div>' for k,n in a["counts"].items())
     return f'''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>GRC Evidence Lab | Decision brief</title><style>
@@ -229,24 +331,24 @@ th{{background:#e7eef4}}code{{font-size:.85rem}}footer{{padding:30px;color:var(-
 <h1>Evidence before assurance.</h1><p>Harborlight Workspaces (fictional). A bounded review of six controls converts records into traceable findings and owner-led remediation.</p>
 <nav><a href="#brief">Decision brief</a><a href="#workpapers">Workpapers</a><a href="#risks">Risks</a><a href="#evidence">Evidence</a><a href="#actions">Actions</a></nav></header>
 <main><div class="notice">{DISCLAIMER}</div><section id="brief"><h2>Executive decision brief</h2><div class="metrics">{counts}</div>
-<p><b>{a["finding_count"]} seeded findings.</b> Maintain current risk scores until evidence supports a reassessment. One access sample passes its limited criterion; it does not establish enterprise-wide effectiveness.</p>
-<div class="memo"><h3>Allocate the first week to detection and release governance</h3>
-<p>Refresh C02 audit evidence and investigate CHG-003 under C03 by October 18. Then document recovery testing under C04 by October 25.
-C01 remains the highest inherent scenario at 20; its three-event passing sample is too narrow to justify reducing the current score.</p>
-<p>For V01, choose conditional continuation while Procurement refreshes the review by November 1. Immediate replacement would introduce migration disruption;
-unconditional continuation would ignore expired assurance. A fictional management reviewer must set interim monitoring and decide whether to accept remaining exposure.
-This lab records a proposed decision, not an executed contract action or risk acceptance.</p>
-<p>Target scores are planning scenarios. No open remediation is considered closed and no risk acceptance is recorded.</p></div></section>
+<p><b>{a["finding_count"]} seeded findings.</b> Maintain current risk scores until evidence supports a reassessment. Passing samples support only their stated fictional population and criteria; they do not establish enterprise-wide effectiveness.</p>
+<div class="memo"><h3>Recorded remediation decisions</h3>
+<p>{len(open_actions)} open actions; {closed_count} closed actions. The queue below derives from current register status, priority and due date.</p>
+{action_brief}
+<p>Target scores are proposed planning scenarios. Closed actions require separate documented management reassessment before changing risk.
+Read the <a href="../docs/decision-memo.md">fixed October 11 baseline decision memo</a> for the original prioritization tradeoffs; it is not a live status report.</p></div></section>
 <h2>Review process</h2><div class="flow"><span>Scope &amp; score →</span><span>Map control →</span><span>Request evidence →</span><span>Check age &amp; scope →</span><span>Test sample →</span><span>Record gap →</span><span>Remediate &amp; retest →</span><span>Review &amp; reassess</span></div>
 <section id="workpapers"><h2>Control workpapers</h2><div class="grid">{''.join(sections)}</div></section>
 <section id="risks"><h2>Risk register</h2><p>Likelihood × impact; current assessed score remains at inherent level. No implemented-control discount is assumed.</p>
 {table(["ID","Scenario","Current / inherent","Target scenario","Fictional role"],risk_rows)}</section>
-<section id="evidence"><h2>Evidence register</h2><p>Maximum age is an authored lab policy. SHA-256 detects fixture changes; it does not prove authenticity.</p>
+<section id="evidence"><h2>Evidence register</h2><p>Maximum age is an authored lab policy, measured from the earlier of collection and population period end. SHA-256 detects fixture changes; it does not prove authenticity.</p>
 {table(["ID","Artifact","Collected","Max age (days)","Record","Hash prefix"],ev_rows)}</section>
-<section id="actions"><h2>Remediation queue</h2><p>All actions are open. Closure requires a successful retest, current review evidence and reviewer identity.</p>
-{table(["ID","Trace","Priority","Action","Fictional role","Due","Closure evidence"],rem_rows)}</section>
-<h2>Vendor record</h2><p id="V01"><b>V01 · Atlas Queue Services (fictional)</b> — critical managed queue. {link("R06")} / {link("C06")} / {link("E06")}.
-Conditional continuation is a proposed scenario decision pending refreshed review.</p>
+<section id="actions"><h2>Remediation queue</h2><p>{len(open_actions)} actions open; {closed_count} closed. Closure requires completion, a distinct subsequent retest, matching reviewer sign-off and chronological timestamps.</p>
+{table(["ID","Trace","Priority","Action","Fictional role","Due","Closure evidence","Status","Completed","Retest event","Reviewed"],rem_rows)}</section>
+<h2>Test event history</h2><p>Append-style editable JSON with a preserved initial prefix and consistency checks. This is not cryptographically immutable storage.</p>
+{table(["Event","Control","Test","Kind","Performed UTC","Recorded result","Remediation"],history_rows)}
+<h2>Vendor records</h2><p>Recorded scenario decisions; no real contract action or risk acceptance is performed.</p>
+{table(["ID","Fictional vendor","Criticality","Trace","Proposed decision","Basis"],vendor_rows)}
 <h2>Sources and limits</h2><p>Illustrative partial mappings to <a href="https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final">NIST SP 800-53 Rev. 5 / release 5.2.0</a>;
 assessment approach informed by <a href="https://csrc.nist.gov/pubs/sp/800/53/a/r5/final">SP 800-53A Rev. 5 / release 5.2.0</a>.
 Verified October 11, 2026. See <a href="../docs/methodology.md">methodology</a> and <a href="../docs/sources.md">mapping rationales and remaining gaps</a>.</p>
@@ -276,12 +378,42 @@ def build(d, root=ROOT):
         writer.writerows(a["results"])
     summary = "# Executive summary — synthetic case\n\n" + DISCLAIMER + "\n\n"
     summary += f'As of {a["as_of"]}: {a["counts"]}; {a["finding_count"]} findings.\n\n'
-    summary += "Decision: refresh audit review evidence and investigate unapproved CHG-003 first. Obtain recovery exercise evidence next. Keep current risk scores unchanged pending reassessment. Targets are hypothetical. All five actions remain open.\n\n"
+    open_actions = sorted((m for m in d["remediation"] if m["status"] == "open"),
+                          key=lambda m:(m["priority"],m["due_on"],m["id"]))
+    closed_count = sum(m["status"] == "closed" for m in d["remediation"])
+    summary += f"{len(open_actions)} actions open; {closed_count} closed. Current risk scores are held at inherent level; targets are proposed scenarios. Read docs/decision-memo.md as a fixed October 11 baseline memo.\n\n"
+    for m in open_actions:
+        summary += f'- {m["id"]} / {m["control_id"]}: {m["priority"]}, {m["action"]}; due {m["due_on"]}.\n'
+    summary += "\n"
     summary += "| Finding | Trace | Gap |\n|---|---|---|\n"
     for f in a["findings"]:
         summary += f'| {f["id"]} | {f["risk_id"]} → {f["control_id"]} → {f["evidence_id"]} | {f["code"]} {", ".join(f["exceptions"])} |\n'
     (out / "executive-summary.md").write_text(summary, encoding="utf-8")
     return a
+
+GENERATED = tuple(["data/" + name + ".csv" for name in TABLES] +
+                  ["reports/assessment.json", "reports/index.html", "reports/test-results.csv",
+                   "reports/executive-summary.md"])
+
+def check_generated(d, root=ROOT):
+    """Compare all outputs before overwriting anything, with a repeatability check."""
+    with tempfile.TemporaryDirectory() as temporary:
+        target = Path(temporary)
+        shutil.copytree(root / "data", target / "data")
+        shutil.copytree(root / "evidence", target / "evidence")
+        build(d, target)
+        first = {name:(target / name).read_bytes() for name in GENERATED}
+        build(d, target)
+        errors = []
+        for name in GENERATED:
+            if first[name] != (target / name).read_bytes():
+                errors.append("Nondeterministic artifact: " + name)
+            existing = root / name
+            # Git text checkout may normalize LF/CRLF; content comparison is newline-normalized.
+            expected = first[name].decode("utf-8").replace("\r\n", "\n")
+            if not existing.is_file() or existing.read_text(encoding="utf-8") != expected:
+                errors.append("Report drift: " + name)
+        return errors
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
@@ -297,12 +429,11 @@ def main():
     if args.command == "build":
         build(d)
     elif args.command == "check":
-        expected = json.dumps(a, indent=2) + "\n"
-        checks = [("assessment.json", expected), ("index.html", render(d, a))]
-        for name, content in checks:
-            if (ROOT / "reports" / name).read_text(encoding="utf-8") != content:
-                print("Report drift:", name)
-                return 2
+        drift = check_generated(d)
+        if drift:
+            for error in drift:
+                print(error)
+            return 2
     print("Valid register relationships. Assessment:", json.dumps(a["counts"], sort_keys=True))
     print(f'{a["finding_count"]} evidence/control findings remain intentionally open.')
     print(DISCLAIMER)

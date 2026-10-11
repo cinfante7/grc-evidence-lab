@@ -4,15 +4,21 @@
   "rows": [
     {
       "id": "SEP-001",
-      "removal_hours": 4
+      "removal_hours": 4,
+      "occurred_on": "2026-09-05"
     },
     {
       "id": "SEP-002",
-      "removal_hours": 16
+      "removal_hours": 16,
+      "occurred_on": "2026-09-14"
     },
     {
       "id": "SEP-003",
-      "removal_hours": 24
+      "removal_hours": 24,
+      "occurred_on": "2026-09-28"
     }
-  ]
+  ],
+  "scope": "C01",
+  "period_start": "2026-09-01",
+  "period_end": "2026-09-30"
 }
