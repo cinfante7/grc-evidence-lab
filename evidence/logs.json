@@ -1,0 +1,14 @@
+{
+  "synthetic": true,
+  "period": "June 2026",
+  "rows": [
+    {
+      "id": "LOG-001",
+      "disposition": "No exception"
+    },
+    {
+      "id": "LOG-002",
+      "disposition": "Escalation closed"
+    }
+  ]
+}

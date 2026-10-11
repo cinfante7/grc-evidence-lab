@@ -1,0 +1,160 @@
+{
+  "as_of": "2026-10-11",
+  "disclaimer": "Fictional organization and synthetic records. Software checks and sample results do not establish control effectiveness, regulatory compliance or production security.",
+  "counts": {
+    "inconclusive": 3,
+    "not_tested": 1,
+    "sample_fail": 1,
+    "sample_pass": 1
+  },
+  "finding_count": 5,
+  "results": [
+    {
+      "control_id": "C01",
+      "test_id": "T01",
+      "evidence_id": "E01",
+      "risk_id": "R01",
+      "status": "sample_pass",
+      "age_days": 10,
+      "codes": [],
+      "exceptions": [],
+      "sample_count": 3,
+      "criterion": "Within 24 hours of separation",
+      "scope": "All 3 fictional separation events in September 2026"
+    },
+    {
+      "control_id": "C02",
+      "test_id": "T02",
+      "evidence_id": "E02",
+      "risk_id": "R02",
+      "status": "inconclusive",
+      "age_days": 103,
+      "codes": [
+        "STALE"
+      ],
+      "exceptions": [],
+      "sample_count": 2,
+      "criterion": "Weekly review with escalation disposition",
+      "scope": "All 2 fictional weekly reviews in June 2026"
+    },
+    {
+      "control_id": "C03",
+      "test_id": "T03",
+      "evidence_id": "E03",
+      "risk_id": "R03",
+      "status": "sample_fail",
+      "age_days": 9,
+      "codes": [
+        "EXCEPTION"
+      ],
+      "exceptions": [
+        "CHG-003"
+      ],
+      "sample_count": 3,
+      "criterion": "Approval recorded before deployment",
+      "scope": "All 3 fictional deployments in September 2026"
+    },
+    {
+      "control_id": "C04",
+      "test_id": "T04",
+      "evidence_id": "E04",
+      "risk_id": "R04",
+      "status": "inconclusive",
+      "age_days": 26,
+      "codes": [
+        "MISSING"
+      ],
+      "exceptions": [],
+      "sample_count": 1,
+      "criterion": "Quarterly recovery exercise with observed restore result",
+      "scope": "One requested September 2026 recovery exercise"
+    },
+    {
+      "control_id": "C05",
+      "test_id": "T05",
+      "evidence_id": "E05",
+      "risk_id": "R05",
+      "status": "not_tested",
+      "age_days": 21,
+      "codes": [
+        "NOT_TESTED"
+      ],
+      "exceptions": [],
+      "sample_count": 0,
+      "criterion": "Annual exercise with lessons and assigned actions",
+      "scope": "Design plan only; no performed exercise"
+    },
+    {
+      "control_id": "C06",
+      "test_id": "T06",
+      "evidence_id": "E06",
+      "risk_id": "R06",
+      "status": "inconclusive",
+      "age_days": 467,
+      "codes": [
+        "STALE"
+      ],
+      "exceptions": [],
+      "sample_count": 1,
+      "criterion": "Annual review of critical supplier evidence and exceptions",
+      "scope": "One annual review for V01"
+    }
+  ],
+  "findings": [
+    {
+      "id": "C02-STALE",
+      "control_id": "C02",
+      "evidence_id": "E02",
+      "risk_id": "R02",
+      "code": "STALE",
+      "exceptions": []
+    },
+    {
+      "id": "C03-EXCEPTION",
+      "control_id": "C03",
+      "evidence_id": "E03",
+      "risk_id": "R03",
+      "code": "EXCEPTION",
+      "exceptions": [
+        "CHG-003"
+      ]
+    },
+    {
+      "id": "C04-MISSING",
+      "control_id": "C04",
+      "evidence_id": "E04",
+      "risk_id": "R04",
+      "code": "MISSING",
+      "exceptions": []
+    },
+    {
+      "id": "C05-NOT_TESTED",
+      "control_id": "C05",
+      "evidence_id": "E05",
+      "risk_id": "R05",
+      "code": "NOT_TESTED",
+      "exceptions": []
+    },
+    {
+      "id": "C06-STALE",
+      "control_id": "C06",
+      "evidence_id": "E06",
+      "risk_id": "R06",
+      "code": "STALE",
+      "exceptions": []
+    }
+  ],
+  "evidence_sha256": {
+    "E01": "362dc7b6ee1b831aecb1c4c855f237e37ba1c075706fff5b65ecebbf715b81a7",
+    "E02": "6abdfac246d3bbc81ceaa7bbbf36b3ddaf5c7742b519035593a290c72f7c44db",
+    "E03": "710fe5d35780c02671c8c4064cc629355f43dbdbb9330ed8c4b1df839f3ae1a7",
+    "E04": null,
+    "E05": "27456755d4b47062cbe7d81ad19a97adde9badcdc02a12659d23e1bc5d81a2a5",
+    "E06": "f772f044a56b22ac7ba2a13766b81b8e4cea18f07fe17f4f993c3668cd6617b9"
+  },
+  "risk_bands": {
+    "critical": 1,
+    "high": 4,
+    "moderate": 1
+  }
+}

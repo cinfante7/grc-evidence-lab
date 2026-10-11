@@ -1,0 +1,12 @@
+{
+  "synthetic": true,
+  "vendor_id": "V01",
+  "period": "July 2025",
+  "rows": [
+    {
+      "id": "VREV-001",
+      "signed_off": true,
+      "exceptions": "None in historical sample"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "synthetic": true,
+  "period": "September 2026",
+  "rows": [
+    {
+      "id": "CHG-001",
+      "approved_on": "2026-09-02",
+      "deployed_on": "2026-09-03"
+    },
+    {
+      "id": "CHG-002",
+      "approved_on": "2026-09-09",
+      "deployed_on": "2026-09-10"
+    },
+    {
+      "id": "CHG-003",
+      "approved_on": null,
+      "deployed_on": "2026-09-18"
+    }
+  ]
+}

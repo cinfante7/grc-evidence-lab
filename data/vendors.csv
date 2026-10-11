@@ -1,0 +1,2 @@
+id,name,service,criticality,risk_id,control_id,evidence_id,owner,decision,decision_basis
+V01,Atlas Queue Services (fictional),Managed message queue,high,R06,C06,E06,Procurement Lead,Conditional continuation pending refreshed review,Scenario judgment; no real contract or vendor assessment

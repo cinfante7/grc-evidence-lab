@@ -1,0 +1,18 @@
+{
+  "synthetic": true,
+  "period": "September 2026",
+  "rows": [
+    {
+      "id": "SEP-001",
+      "removal_hours": 4
+    },
+    {
+      "id": "SEP-002",
+      "removal_hours": 16
+    },
+    {
+      "id": "SEP-003",
+      "removal_hours": 24
+    }
+  ]
+}

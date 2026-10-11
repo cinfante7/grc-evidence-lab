@@ -1,0 +1,48 @@
+$ python lab.py validate
+Valid register relationships. Assessment: {"inconclusive": 3, "not_tested": 1, "sample_fail": 1, "sample_pass": 1}
+5 evidence/control findings remain intentionally open.
+Fictional organization and synthetic records. Software checks and sample results do not establish control effectiveness, regulatory compliance or production security.
+exit_code=0
+
+$ python lab.py build
+Valid register relationships. Assessment: {"inconclusive": 3, "not_tested": 1, "sample_fail": 1, "sample_pass": 1}
+5 evidence/control findings remain intentionally open.
+Fictional organization and synthetic records. Software checks and sample results do not establish control effectiveness, regulatory compliance or production security.
+exit_code=0
+
+$ python -m unittest discover -s tests -v
+test_artifact_provenance_required (test_lab.EvidenceLabTests.test_artifact_provenance_required) ... ok
+test_broken_reference_rejected (test_lab.EvidenceLabTests.test_broken_reference_rejected) ... ok
+test_closure_requires_passing_retest_and_matching_review (test_lab.EvidenceLabTests.test_closure_requires_passing_retest_and_matching_review) ... ok
+test_closure_with_failed_retest_rejected (test_lab.EvidenceLabTests.test_closure_with_failed_retest_rejected) ... ok
+test_closure_without_matching_signoff_rejected (test_lab.EvidenceLabTests.test_closure_without_matching_signoff_rejected) ... ok
+test_closure_without_retest_rejected (test_lab.EvidenceLabTests.test_closure_without_retest_rejected) ... ok
+test_cross_link_mismatch_rejected (test_lab.EvidenceLabTests.test_cross_link_mismatch_rejected) ... ok
+test_duplicate_ids_rejected (test_lab.EvidenceLabTests.test_duplicate_ids_rejected) ... ok
+test_empty_sample_cannot_pass (test_lab.EvidenceLabTests.test_empty_sample_cannot_pass) ... ok
+test_fixture_links_valid (test_lab.EvidenceLabTests.test_fixture_links_valid) ... ok
+test_freshness_boundary_inclusive (test_lab.EvidenceLabTests.test_freshness_boundary_inclusive) ... ok
+test_future_collection_rejected (test_lab.EvidenceLabTests.test_future_collection_rejected) ... ok
+test_missing_distinct_from_insufficient (test_lab.EvidenceLabTests.test_missing_distinct_from_insufficient) ... ok
+test_proposed_control_never_passes (test_lab.EvidenceLabTests.test_proposed_control_never_passes) ... ok
+test_report_reconciliation_and_determinism (test_lab.EvidenceLabTests.test_report_reconciliation_and_determinism) ... ok
+test_score_and_bounds_rejected (test_lab.EvidenceLabTests.test_score_and_bounds_rejected) ... ok
+test_scoring_bands_and_reachable_products (test_lab.EvidenceLabTests.test_scoring_bands_and_reachable_products) ... ok
+test_seeded_findings_are_visible (test_lab.EvidenceLabTests.test_seeded_findings_are_visible) ... ok
+test_unsafe_path_rejected (test_lab.EvidenceLabTests.test_unsafe_path_rejected) ... ok
+test_wrong_scope_and_period_distinct (test_lab.EvidenceLabTests.test_wrong_scope_and_period_distinct) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.333s
+
+OK
+exit_code=0
+
+$ python lab.py check
+Valid register relationships. Assessment: {"inconclusive": 3, "not_tested": 1, "sample_fail": 1, "sample_pass": 1}
+5 evidence/control findings remain intentionally open.
+Fictional organization and synthetic records. Software checks and sample results do not establish control effectiveness, regulatory compliance or production security.
+exit_code=0
+
+Local HTML links checked: 41
+Heuristic content scan: 27 files; no matches.

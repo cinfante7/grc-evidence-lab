@@ -1,0 +1,7 @@
+id,name,nist_id,nist_title,risk_id,evidence_id,owner,implementation,criterion,test_id
+C01,Access removal,ac-2,Account Management,R01,E01,Identity Lead,implemented,Within 24 hours of separation,T01
+C02,Log review,au-6,"Audit Record Review, Analysis, and Reporting",R02,E02,Security Lead,implemented,Weekly review with escalation disposition,T02
+C03,Change approval,cm-3,Configuration Change Control,R03,E03,Engineering Lead,implemented,Approval recorded before deployment,T03
+C04,Restore exercise,cp-4,Contingency Plan Testing,R04,E04,Operations Lead,implemented,Quarterly recovery exercise with observed restore result,T04
+C05,Incident exercise,ir-3,Incident Response Testing,R05,E05,Security Lead,proposed,Annual exercise with lessons and assigned actions,T05
+C06,Vendor review,sr-6,Supplier Assessments and Reviews,R06,E06,Procurement Lead,implemented,Annual review of critical supplier evidence and exceptions,T06
