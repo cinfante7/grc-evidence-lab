@@ -273,7 +273,7 @@ def render(d, a):
     open_actions = sorted((m for m in d["remediation"] if m["status"] == "open"),
                           key=lambda m:(m["priority"],m["due_on"],m["id"]))
     closed_count = sum(m["status"] == "closed" for m in d["remediation"])
-    action_brief = "<ul>" + "".join(f'<li>{link(m["id"])} · {esc(m["priority"])} · {esc(m["action"])} · due {esc(m["due_on"])}</li>'
+    action_brief = "<ul>" + "".join(f'<li>{link(m["id"])}  |  {esc(m["priority"])}  |  {esc(m["action"])}  |  due {esc(m["due_on"])}</li>'
                                     for m in open_actions) + "</ul>" if open_actions else "<p>No open actions recorded.</p>"
     history_rows = [[esc(event["id"]), link(event["control_id"]), esc(event["test_id"]),
                      esc(event["kind"]), esc(event["performed_at"] or "not performed"),
@@ -289,14 +289,14 @@ def render(d, a):
         sections.append(f'<article id="{c["id"]}"><div class="eyebrow">{c["id"]} / {link(c["risk_id"])}</div>'
                         f'<h3>{esc(c["name"])}</h3><p><span class="pill {r["status"]}">{esc(r["status"].replace("_"," "))}</span> '
                         f'Implementation: {esc(c["implementation"])}</p><p>{esc(c["criterion"])}</p>'
-                        f'<p id="{t["id"]}"><b>{t["id"]}</b> · {esc(t["method"])} · {esc(t["period_start"])} to {esc(t["period_end"])}</p>'
+                        f'<p id="{t["id"]}"><b>{t["id"]}</b>  |  {esc(t["method"])}  |  {esc(t["period_start"])} to {esc(t["period_end"])}</p>'
                         f'<p>{esc(t["sample_scope"])}. Sample {t["sample_count"]}/{t["population_count"]}. {esc(t["sample_rationale"])}</p>'
                         f'<p>Procedure: {esc(t["procedure"])}</p>'
-                        f'<p>Evidence {link(c["evidence_id"])} · age {r["age_days"]} days · owner {esc(c["owner"])}</p>'
-                        f'<p>Finding codes: {esc(", ".join(r["codes"]) or "none")} · exceptions: {esc(", ".join(r["exceptions"]) or "none")}</p>'
-                        f'<p>NIST illustrative reference: {esc(c["nist_id"].upper())} — {esc(c["nist_title"])}</p></article>')
+                        f'<p>Evidence {link(c["evidence_id"])}  |  age {r["age_days"]} days  |  owner {esc(c["owner"])}</p>'
+                        f'<p>Finding codes: {esc(", ".join(r["codes"]) or "none")}  |  exceptions: {esc(", ".join(r["exceptions"]) or "none")}</p>'
+                        f'<p>NIST illustrative reference: {esc(c["nist_id"].upper())} - {esc(c["nist_title"])}</p></article>')
     risk_rows = [[f'<span id="{r["id"]}">{r["id"]}</span>', esc(r["name"]),
-                  f'{r["likelihood"]} × {r["impact"]} = <b>{r["current_assessed_score"]}</b> ({band(r["current_assessed_score"])})',
+                  f'{r["likelihood"]} x {r["impact"]} = <b>{r["current_assessed_score"]}</b> ({band(r["current_assessed_score"])})',
                   f'{r["target_score"]} (proposed)', esc(r["owner"])] for r in d["risks"]]
     ev_rows = [[f'<span id="{e["id"]}">{e["id"]}</span>', esc(e["name"]),
                 esc(e["collected_on"]), str(e["max_age_days"]),
@@ -327,7 +327,7 @@ table{{border-collapse:collapse;width:100%;font-size:.9rem}}td,th{{padding:14px;
 th{{background:#e7eef4}}code{{font-size:.85rem}}footer{{padding:30px;color:var(--muted)}}article p{{font-size:.9rem}}
 .flow{{display:flex;gap:10px;flex-wrap:wrap;padding:18px;background:#e3f2f0;border-radius:10px}}
 @media print{{header{{padding:20px}}article{{break-inside:avoid}}nav{{display:none}}}}
-</style><header><div class="eyebrow">Synthetic portfolio demonstration · {d["as_of"]}</div>
+</style><header><div class="eyebrow">Synthetic portfolio demonstration  |  {d["as_of"]}</div>
 <h1>Evidence before assurance.</h1><p>Harborlight Workspaces (fictional). A bounded review of six controls converts records into traceable findings and owner-led remediation.</p>
 <nav><a href="#brief">Decision brief</a><a href="#workpapers">Workpapers</a><a href="#risks">Risks</a><a href="#evidence">Evidence</a><a href="#actions">Actions</a></nav></header>
 <main><div class="notice">{DISCLAIMER}</div><section id="brief"><h2>Executive decision brief</h2><div class="metrics">{counts}</div>
@@ -337,9 +337,9 @@ th{{background:#e7eef4}}code{{font-size:.85rem}}footer{{padding:30px;color:var(-
 {action_brief}
 <p>Target scores are proposed planning scenarios. Closed actions require separate documented management reassessment before changing risk.
 Read the <a href="../docs/decision-memo.md">fixed October 11 baseline decision memo</a> for the original prioritization tradeoffs; it is not a live status report.</p></div></section>
-<h2>Review process</h2><div class="flow"><span>Scope &amp; score →</span><span>Map control →</span><span>Request evidence →</span><span>Check age &amp; scope →</span><span>Test sample →</span><span>Record gap →</span><span>Remediate &amp; retest →</span><span>Review &amp; reassess</span></div>
+<h2>Review process</h2><div class="flow"><span>Scope &amp; score -></span><span>Map control -></span><span>Request evidence -></span><span>Check age &amp; scope -></span><span>Test sample -></span><span>Record gap -></span><span>Remediate &amp; retest -></span><span>Review &amp; reassess</span></div>
 <section id="workpapers"><h2>Control workpapers</h2><div class="grid">{''.join(sections)}</div></section>
-<section id="risks"><h2>Risk register</h2><p>Likelihood × impact; current assessed score remains at inherent level. No implemented-control discount is assumed.</p>
+<section id="risks"><h2>Risk register</h2><p>Likelihood x impact; current assessed score remains at inherent level. No implemented-control discount is assumed.</p>
 {table(["ID","Scenario","Current / inherent","Target scenario","Fictional role"],risk_rows)}</section>
 <section id="evidence"><h2>Evidence register</h2><p>Maximum age is an authored lab policy, measured from the earlier of collection and population period end. SHA-256 detects fixture changes; it does not prove authenticity.</p>
 {table(["ID","Artifact","Collected","Max age (days)","Record","Hash prefix"],ev_rows)}</section>
@@ -354,7 +354,7 @@ assessment approach informed by <a href="https://csrc.nist.gov/pubs/sp/800/53/a/
 Verified October 11, 2026. See <a href="../docs/methodology.md">methodology</a> and <a href="../docs/sources.md">mapping rationales and remaining gaps</a>.</p>
 <p>No real systems were inspected, no interviews performed, and no technical controls exercised. Synthetic artifact examination is limited to the criteria shown.
 This is neither a complete NIST baseline nor a compliance assessment. Figures are deterministic at the fixed as-of date.</p></main>
-<footer>GRC Evidence Lab · Standard-library Python · <a href="assessment.json">Machine-readable assessment</a> · <a href="../README.md">Recruiter guide</a></footer></html>'''
+<footer>GRC Evidence Lab  |  Standard-library Python  |  <a href="assessment.json">Machine-readable assessment</a>  |  <a href="../README.md">Recruiter guide</a></footer></html>'''
 
 def build(d, root=ROOT):
     errors = validate(d, root)
@@ -376,7 +376,7 @@ def build(d, root=ROOT):
         writer = csv.DictWriter(f, fieldnames=list(a["results"][0]))
         writer.writeheader()
         writer.writerows(a["results"])
-    summary = "# Executive summary — synthetic case\n\n" + DISCLAIMER + "\n\n"
+    summary = "# Executive summary - synthetic case\n\n" + DISCLAIMER + "\n\n"
     summary += f'As of {a["as_of"]}: {a["counts"]}; {a["finding_count"]} findings.\n\n'
     open_actions = sorted((m for m in d["remediation"] if m["status"] == "open"),
                           key=lambda m:(m["priority"],m["due_on"],m["id"]))
@@ -387,7 +387,7 @@ def build(d, root=ROOT):
     summary += "\n"
     summary += "| Finding | Trace | Gap |\n|---|---|---|\n"
     for f in a["findings"]:
-        summary += f'| {f["id"]} | {f["risk_id"]} → {f["control_id"]} → {f["evidence_id"]} | {f["code"]} {", ".join(f["exceptions"])} |\n'
+        summary += f'| {f["id"]} | {f["risk_id"]} -> {f["control_id"]} -> {f["evidence_id"]} | {f["code"]} {", ".join(f["exceptions"])} |\n'
     (out / "executive-summary.md").write_text(summary, encoding="utf-8")
     return a
 

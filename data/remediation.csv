@@ -1,5 +1,5 @@
 id,control_id,risk_id,priority,owner,due_on,action,closure_criteria,status,accepted_by,completed_at,retest_event_id,reviewed_at,closed_at
-M01,C02,R02,P1,Security Lead,2026-10-18,Obtain current weekly reviews and escalation dispositions,Fresh evidence and repeat T02 with no unexplained exceptions,open,,,,,
+M01,C02,R02,P1,Security Lead,2026-10-18,Obtain current review worksheets and recorded dispositions,Fresh scoped worksheets pass a subsequent disposition-presence test; weekly cadence remains unassessed,open,,,,,
 M02,C03,R03,P1,Engineering Lead,2026-10-18,Investigate CHG-003 and enforce prior approval,"Document root cause, approval gate and fresh follow-up sample passing T03",open,,,,,
 M03,C04,R04,P1,Operations Lead,2026-10-25,Perform and document a restore exercise,"Observed restore timings, scope and reviewer sign-off support T04",open,,,,,
 M04,C05,R05,P2,Security Lead,2026-11-10,Approve and conduct incident exercise,"Performed exercise, lessons, assigned actions and T05 review",open,,,,,

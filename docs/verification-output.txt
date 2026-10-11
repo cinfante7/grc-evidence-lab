@@ -54,7 +54,7 @@ test_wrong_reviewer_event_or_action_rejected (test_regressions.RegressionTests.t
 test_wrong_vendor_payload_rejected (test_regressions.RegressionTests.test_wrong_vendor_payload_rejected) ... ok
 
 ----------------------------------------------------------------------
-Ran 41 tests in 2.365s
+Ran 41 tests in 2.410s
 
 OK
 exit_code=0

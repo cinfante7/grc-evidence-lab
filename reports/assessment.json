@@ -34,8 +34,8 @@
       ],
       "exceptions": [],
       "sample_count": 2,
-      "criterion": "Weekly review with escalation disposition",
-      "scope": "All 2 fictional weekly reviews in June 2026"
+      "criterion": "Sampled historical review worksheets contain a nonempty disposition field; weekly cadence and escalation correctness are not assessed",
+      "scope": "Both fictional June 2026 worksheets; disposition presence only, not weekly coverage"
     },
     {
       "control_id": "C03",

@@ -97,16 +97,16 @@
       "control_id": "C02",
       "evidence_id": "E02",
       "method": "examine synthetic artifact",
-      "sample_scope": "All 2 fictional weekly reviews in June 2026",
-      "procedure": "Verify each review includes disposition",
+      "sample_scope": "Both fictional June 2026 worksheets; disposition presence only, not weekly coverage",
+      "procedure": "Examine each sampled worksheet for a nonempty disposition; do not infer cadence or escalation correctness",
       "rule": "logs",
       "performed_on": "2026-10-11",
       "population_count": 2,
       "sample_count": 2,
-      "sample_rationale": "Full fictional population for this limited fixture; no statistical or real-world inference.",
+      "sample_rationale": "Both authored historical worksheets are examined; the fixture does not define or test complete weekly coverage.",
       "period_start": "2026-06-01",
       "period_end": "2026-06-30",
-      "criterion": "Weekly review with escalation disposition",
+      "criterion": "Sampled historical review worksheets contain a nonempty disposition field; weekly cadence and escalation correctness are not assessed",
       "owner": "Assurance Reviewer (fictional role)",
       "performed_at": "2026-10-11T12:00:00Z",
       "event_id": "EV02"
@@ -136,8 +136,8 @@
       ],
       "exceptions": [],
       "sample_count": 2,
-      "criterion": "Weekly review with escalation disposition",
-      "scope": "All 2 fictional weekly reviews in June 2026"
+      "criterion": "Sampled historical review worksheets contain a nonempty disposition field; weekly cadence and escalation correctness are not assessed",
+      "scope": "Both fictional June 2026 worksheets; disposition presence only, not weekly coverage"
     },
     "artifact_snapshot": {
       "synthetic": true,

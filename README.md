@@ -4,11 +4,11 @@
 
 Harborlight Workspaces is fictional. Every organization, vendor, owner role, record and assessment result is synthetic. This repository is a portfolio demonstration, not employment history, client work, an audit opinion or a compliance certification.
 
-## Start here â€” a three-minute recruiter review
+## Start here - a three-minute recruiter review
 
 1. Open [the executive summary](reports/executive-summary.md).
 2. Download this repository and open [reports/index.html](reports/index.html) in a browser for the decision brief, linked control workpapers, risks, evidence and remediation queue.
-3. Follow **R03 â†’ C03 â†’ E03 â†’ T03 â†’ M02**: CHG-003 lacks approval, its sample fails, and Engineering has a dated action with explicit closure evidence.
+3. Follow **R03 -> C03 -> E03 -> T03 -> M02**: CHG-003 lacks approval, its sample fails, and Engineering has a dated action with explicit closure evidence.
 
 **Skills demonstrated:** risk scoring and rationale, evidence request tracking, freshness and scope review, sample testing, exception documentation, vendor assurance, remediation prioritization and executive communication. The Python automation supports the analyst's work; it does not replace an assessor's judgment.
 
@@ -18,7 +18,7 @@ Six bounded controls, six risks, six evidence requests, six test workpapers, fiv
 
 The case keeps current assessed risk at inherent level and displays proposed target scores separately. No controls receive automatic risk reduction from their implementation status or a passing fixture.
 
-## Reproduce â€” Python 3.10 or newer, no dependencies
+## Reproduce - Python 3.10 or newer, no dependencies
 
 From the repository directory:
 

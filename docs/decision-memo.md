@@ -1,4 +1,4 @@
-# Worked decision memo â€” fictional management review
+# Worked decision memo - fictional management review
 
 **Baseline date:** October 11, 2026
 
@@ -9,9 +9,9 @@ This is a fixed historical scenario memo, not a live report. Current status is g
 
 ## Evidence and reasoning
 
-R03 scores 15 (3 Ã— 5), high. C03 is asserted implemented, but E03 includes CHG-003 with no approval. T03 examines all three September fictional deployments: two satisfy the criterion and one fails. This is a specific approval exception, not proof that every deployment is unauthorized. M02 requires root-cause documentation, a prior-approval gate and a fresh follow-up sample; due October 18.
+R03 scores 15 (3 x 5), high. C03 is asserted implemented, but E03 includes CHG-003 with no approval. T03 examines all three September fictional deployments: two satisfy the criterion and one fails. This is a specific approval exception, not proof that every deployment is unauthorized. M02 requires root-cause documentation, a prior-approval gate and a fresh follow-up sample; due October 18.
 
-R02 scores 16, high. C02 has two historical review records, but E02 is 103 days old against a 30-day policy. T02 is inconclusive for current assurance. First request fresh review records and escalation dispositions under M01, also October 18. Do not count historical complete worksheets as current evidence.
+R02 scores 16, high. C02 has two historical review records, but E02 is 103 days old against a 30-day policy. T02 is inconclusive for current assurance. First request fresh review worksheets and recorded dispositions under M01, also October 18. C02 checks only disposition presence; weekly cadence and escalation correctness are not assessed. Do not count historical complete worksheets as current evidence.
 
 R04 scores 12, high. E04 is requested but its file is absent. The claimed recovery process cannot be substantiated. M03 requires an observed recovery exercise, timings and review by October 25. A policy document alone would not satisfy this closure criterion.
 

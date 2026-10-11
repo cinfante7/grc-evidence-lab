@@ -10,7 +10,7 @@ Implementation status is a management assertion: **implemented** or **proposed**
 
 ## Risk scoring
 
-Likelihood and impact each use integers 1â€“5.
+Likelihood and impact each use integers 1-5.
 
 | Rating | Likelihood over the fictional next year | Impact on fictional operations |
 |---|---|---|
@@ -20,7 +20,7 @@ Likelihood and impact each use integers 1â€“5.
 | 4 | Likely, repeated opportunities | Major disruption across customer operations |
 | 5 | Almost certain under assumptions | Severe confidentiality or availability consequences |
 
-Score = likelihood Ã— impact. Low 1â€“5; moderate 6â€“11; high 12â€“19; critical 20â€“25. Products such as 7, 11, 13 or 19 cannot arise from this integer matrix; bands may include unreachable values for readable interval definitions. Validator checks component bounds and exact products, and tests cover band boundaries and reachable scores.
+Score = likelihood x impact. Low 1-5; moderate 6-11; high 12-19; critical 20-25. Products such as 7, 11, 13 or 19 cannot arise from this integer matrix; bands may include unreachable values for readable interval definitions. Validator checks component bounds and exact products, and tests cover band boundaries and reachable scores.
 
 Each risk includes separate likelihood and impact rationale. **Current assessed score is held equal to inherent score** because the fixtures do not support defensible residual-risk estimation. Target likelihood/impact and score describe a proposed post-remediation planning scenario. They are neither measured residual risk nor accepted exposure. No numeric percentage discount is used.
 
@@ -59,7 +59,7 @@ These are **editable JSON files with bounded consistency checks**, not cryptogra
 
 ## Live outputs versus fixed memo
 
-Current counts, open/closed actions, ordered queue, dates, vendor records and event history are rendered from registers. docs/decision-memo.md is explicitly a fixed October 11 baseline decision memo; it is not an automatically refreshed management opinion. The project uses a 5×5 illustrative risk matrix. A separate portfolio example may use 3×3; scales must not be merged without a documented conversion.
+Current counts, open/closed actions, ordered queue, dates, vendor records and event history are rendered from registers. docs/decision-memo.md is explicitly a fixed October 11 baseline decision memo; it is not an automatically refreshed management opinion. The project uses a 5x5 illustrative risk matrix. A separate portfolio example may use 3x3; scales must not be merged without a documented conversion.
 
 ## Reproducibility
 
@@ -68,3 +68,7 @@ JSON is authoritative. CSV files and reports are derived and must not be hand-ed
 Software validation checks IDs, links, scoring, content-level periods/vendor identity/row dates, chronology, unsafe paths, sample declarations, closure preconditions and append-style history consistency. It is a compact fixture validator, not a general-purpose GRC platform or hardened untrusted-data ingestion service.
 
 check compares all six CSV registers, assessment JSON, HTML, test-results CSV and executive summary against two deterministic builds in an isolated temporary directory. It does not overwrite working outputs. verify.py runs this comparison before any writing; it never repairs report drift automatically. Run build explicitly after intentional source changes.
+
+## C02 criterion boundary
+
+C02 examines only nonempty disposition fields in two historical June worksheets. Weekly cadence, complete weekly coverage, escalation appropriateness and escalation closure are not assessed. Its initial workpaper and result snapshot labels were corrected to this narrower actual method; this editorial correction does not change artifacts, dates, result status or history ordering. The Git commit preserves the prior wording. Other original sample exceptions remain unchanged.
