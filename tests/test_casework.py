@@ -45,6 +45,44 @@ class CaseworkTests(unittest.TestCase):
         self.write("ai-approval.json",payload)
         self.assertIn("STALE",casework.assess_ai(self.inventory,self.metadata,self.root)[0]["codes"])
 
+    def data_review_fixture(self):
+        return {"synthetic":True, "tool_id":"AIT02", "evidence_id":"AIE02",
+                "period_start":"2026-10-01", "period_end":"2026-10-01",
+                "collected_on":"2026-10-04", "reviewed":True,
+                "reviewer":"Data Steward (fictional)", "reviewed_on":"2026-10-03",
+                "handling_terms_declared":"Authored schema-only handling declaration; not real vendor terms"}
+
+    def data_review_result(self, payload):
+        self.write("ai-data-review.json", payload)
+        return casework.assess_ai(self.inventory,self.metadata,self.root)[1]
+
+    def test_data_review_missing_reviewer_insufficient(self):
+        payload=self.data_review_fixture();del payload["reviewer"]
+        self.assertEqual(self.data_review_result(payload)["fixture_status"],"inconclusive")
+        self.assertEqual(self.data_review_result(payload)["codes"],["INSUFFICIENT"])
+
+    def test_data_review_wrong_reviewer_insufficient(self):
+        payload=self.data_review_fixture();payload["reviewer"]="Unassigned Reviewer"
+        self.assertEqual(self.data_review_result(payload)["codes"],["INSUFFICIENT"])
+
+    def test_data_review_missing_review_date_insufficient(self):
+        payload=self.data_review_fixture();del payload["reviewed_on"]
+        self.assertEqual(self.data_review_result(payload)["codes"],["INSUFFICIENT"])
+
+    def test_data_review_invalid_future_or_reversed_date_insufficient(self):
+        for reviewed_on in ("not-a-date","2026-10-14","2026-09-30","2026-10-05"):
+            with self.subTest(reviewed_on=reviewed_on):
+                payload=self.data_review_fixture();payload["reviewed_on"]=reviewed_on
+                self.assertEqual(self.data_review_result(payload)["codes"],["INSUFFICIENT"])
+
+    def test_valid_documented_data_review_is_not_operational_approval(self):
+        result=self.data_review_result(self.data_review_fixture())
+        self.assertEqual(result["fixture_status"],"fixture_complete")
+        self.assertEqual(result["codes"],[])
+        self.assertEqual(result["deployment_status"],"proposed")
+        self.assertEqual(result["operational_effectiveness"],"not assessed")
+        self.assertEqual(result["human_decision"],"required; no operational approval recorded")
+
     def test_ai_future_collection_rejected(self):
         payload=casework.read_json(self.root/"cases/fixtures/ai-approval.json")
         payload["collected_on"]="2026-10-14";self.write("ai-approval.json",payload)

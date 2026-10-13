@@ -72,8 +72,18 @@ def assess_ai(inventory, metadata, root=ROOT):
                             or payload.get("approved_boundary") != row["allowed_input"]):
                         codes.append("EXCEPTION")
                 elif row["gate"] == "data_review":
-                    if payload.get("reviewed") is not True or not payload.get("handling_terms_declared"):
+                    if (payload.get("reviewed") is not True
+                            or payload.get("reviewer") != row["owner"]
+                            or not isinstance(payload.get("handling_terms_declared"), str)
+                            or not payload["handling_terms_declared"].strip()):
                         codes.append("INSUFFICIENT")
+                    try:
+                        reviewed = date.fromisoformat(payload.get("reviewed_on"))
+                    except (TypeError, ValueError):
+                        codes.append("INSUFFICIENT")
+                    else:
+                        if not end <= reviewed <= collected:
+                            codes.append("INSUFFICIENT")
                 else:
                     samples, allowed = payload.get("samples", []), payload.get("approved_policy_ids", [])
                     if (not samples or not allowed or len({s["sample_id"] for s in samples}) != len(samples)):

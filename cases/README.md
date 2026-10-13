@@ -15,7 +15,7 @@ These two cases reuse the existing GRC lab's evidence-first method and 5x5 scena
 
 Three fictional tools remain **proposed**. AIT01 has an authored, scoped reviewer sign-off fixture. AIT02 lacks requested data-handling evidence. AIT03 includes two manually authored draft/source pairs, one citing an unsupported policy ID.
 
-The deterministic checks inspect evidence identity, dated scope, freshness, reviewer/boundary match and the declared citation criterion. They do not run an AI tool, evaluate factual accuracy, robustness, bias, privacy/security implementation or suitability for employment decisions. A complete fixture is not tool approval or effective AI governance.
+The deterministic checks inspect evidence identity, dated scope, freshness, reviewer/boundary match and the declared citation criterion. A data-handling review fixture additionally requires the assigned reviewer, a nonempty handling declaration and period-end <= reviewed_on <= collected_on <= assessment date; incomplete or incoherent evidence is inconclusive. They do not run an AI tool, evaluate factual accuracy, robustness, bias, privacy/security implementation or suitability for employment decisions. A complete fixture is not tool approval or effective AI governance.
 
 Current scenario risk = likelihood x impact on the existing 1-5 lab scale. Scores 9, 12 and 12 are authored scenario judgments, not measured probabilities or legal risk rankings. No residual score reduction is assumed. Each row records a scenario and rationale. Freshness is measured from the artifact period end; later receipt cannot refresh an old period.
 

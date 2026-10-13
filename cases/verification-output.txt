@@ -31,6 +31,10 @@ test_ai_risk_bounds_and_duplicate_identity (test_casework.CaseworkTests.test_ai_
 test_ai_wrong_reviewer_cannot_complete_fixture (test_casework.CaseworkTests.test_ai_wrong_reviewer_cannot_complete_fixture) ... ok
 test_ai_wrong_scope (test_casework.CaseworkTests.test_ai_wrong_scope) ... ok
 test_clean_reconciliation_still_requires_human_review (test_casework.CaseworkTests.test_clean_reconciliation_still_requires_human_review) ... ok
+test_data_review_invalid_future_or_reversed_date_insufficient (test_casework.CaseworkTests.test_data_review_invalid_future_or_reversed_date_insufficient) ... ok
+test_data_review_missing_review_date_insufficient (test_casework.CaseworkTests.test_data_review_missing_review_date_insufficient) ... ok
+test_data_review_missing_reviewer_insufficient (test_casework.CaseworkTests.test_data_review_missing_reviewer_insufficient) ... ok
+test_data_review_wrong_reviewer_insufficient (test_casework.CaseworkTests.test_data_review_wrong_reviewer_insufficient) ... ok
 test_deterministic_outputs_and_nonmutating_drift_detection (test_casework.CaseworkTests.test_deterministic_outputs_and_nonmutating_drift_detection) ... ok
 test_invalid_amounts_rejected (test_casework.CaseworkTests.test_invalid_amounts_rejected) ... ok
 test_matching_totals_still_require_six_record_reviews (test_casework.CaseworkTests.test_matching_totals_still_require_six_record_reviews) ... ok
@@ -40,6 +44,7 @@ test_personal_or_protected_columns_not_supported (test_casework.CaseworkTests.te
 test_seeded_ai_gaps_and_review_boundary (test_casework.CaseworkTests.test_seeded_ai_gaps_and_review_boundary) ... ok
 test_source_duplicate_and_cost_center_mismatch_visible (test_casework.CaseworkTests.test_source_duplicate_and_cost_center_mismatch_visible) ... ok
 test_unsafe_fixture_path_rejected (test_casework.CaseworkTests.test_unsafe_fixture_path_rejected) ... ok
+test_valid_documented_data_review_is_not_operational_approval (test_casework.CaseworkTests.test_valid_documented_data_review_is_not_operational_approval) ... ok
 test_artifact_provenance_required (test_lab.EvidenceLabTests.test_artifact_provenance_required) ... ok
 test_broken_reference_rejected (test_lab.EvidenceLabTests.test_broken_reference_rejected) ... ok
 test_closure_without_retest_rejected (test_lab.EvidenceLabTests.test_closure_without_retest_rejected) ... ok
@@ -83,7 +88,7 @@ test_wrong_reviewer_event_or_action_rejected (test_regressions.RegressionTests.t
 test_wrong_vendor_payload_rejected (test_regressions.RegressionTests.test_wrong_vendor_payload_rejected) ... ok
 
 ----------------------------------------------------------------------
-Ran 58 tests in 2.692s
+Ran 63 tests in 2.926s
 
 OK
 exit_code=0
