@@ -1,0 +1,8 @@
+"record_id","period","job_code","cost_center","amount_usd","synthetic"
+"SYN-001","2026-10-01","DEMO-L1","CC-DEMO-A","50000.00","true"
+"SYN-002","2026-10-01","DEMO-L1","CC-DEMO-A","55000.00","true"
+"SYN-002","2026-10-01","DEMO-L1","CC-DEMO-A","55000.00","true"
+"SYN-003","2026-10-01","DEMO-L2","CC-DEMO-B","61000.00","true"
+"SYN-005","2026-10-01","DEMO-L9","CC-DEMO-C","70000.00","true"
+"SYN-006","2026-09-01","DEMO-L3","CC-DEMO-C","75000.00","true"
+"SYN-999","2026-10-01","DEMO-L1","CC-DEMO-X","9000.00","true"

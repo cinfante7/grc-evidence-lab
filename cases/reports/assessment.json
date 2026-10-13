@@ -1,0 +1,235 @@
+{
+  "as_of": "2026-10-13",
+  "disclaimer": "AI-assisted October 2026 independent synthetic portfolio work. No real tools, employee records or salaries were used. No hiring, eligibility or pay decisions are made. Fixture checks are not AI effectiveness tests, legal certification or operational approval.",
+  "provenance": "AI-assisted October 2026 independent portfolio work; every tool, amount, record, output sample and reviewer role is fictional or authored synthetic",
+  "ai": [
+    {
+      "tool_id": "AIT01",
+      "risk_id": "AIR01",
+      "evidence_id": "AIE01",
+      "name": "AtlasDraft Assist (fictional)",
+      "purpose": "Draft summaries of public policy text",
+      "allowed_input": "Public text and authored synthetic examples only",
+      "prohibited_input": "Employee, customer, compensation or confidential records",
+      "owner": "Governance Reviewer (fictional)",
+      "gate": "approval",
+      "fixture_status": "fixture_complete",
+      "codes": [],
+      "sample_exceptions": [],
+      "evidence_age_days": 12,
+      "scenario_score": 9,
+      "scenario_band": "moderate",
+      "risk_scenario": "A fabricated summary could misstate a policy",
+      "risk_basis": "Unverified draft output can be plausible but inaccurate; reputational rework is the illustrative impact",
+      "deployment_status": "proposed",
+      "operational_effectiveness": "not assessed",
+      "human_decision": "required; no operational approval recorded",
+      "next_human_action": "Review actual use boundary and output-check procedure before any operational approval"
+    },
+    {
+      "tool_id": "AIT02",
+      "risk_id": "AIR02",
+      "evidence_id": "AIE02",
+      "name": "LedgerQuery Helper (fictional)",
+      "purpose": "Explain a synthetic compensation-file schema",
+      "allowed_input": "Authored synthetic schema only; no row-level compensation files",
+      "prohibited_input": "Employee records, actual salaries, identifiers or protected traits",
+      "owner": "Data Steward (fictional)",
+      "gate": "data_review",
+      "fixture_status": "inconclusive",
+      "codes": [
+        "MISSING"
+      ],
+      "sample_exceptions": [],
+      "evidence_age_days": null,
+      "scenario_score": 12,
+      "scenario_band": "high",
+      "risk_scenario": "Unknown handling terms could expose restricted inputs if future users broaden scope",
+      "risk_basis": "No documented data-handling review; consequential disclosure is a hypothetical operational scenario",
+      "deployment_status": "proposed",
+      "operational_effectiveness": "not assessed",
+      "human_decision": "required; no operational approval recorded",
+      "next_human_action": "Obtain and review data-handling evidence; maintain proposal-only restriction"
+    },
+    {
+      "tool_id": "AIT03",
+      "risk_id": "AIR03",
+      "evidence_id": "AIE03",
+      "name": "Meridian FAQ Copilot (fictional)",
+      "purpose": "Draft internal FAQ text from approved fictional policies",
+      "allowed_input": "Approved fictional policy passages only",
+      "prohibited_input": "Employee profiles, pay decisions, personal data or unapproved source material",
+      "owner": "Policy Reviewer (fictional)",
+      "gate": "citations",
+      "fixture_status": "fixture_exception",
+      "codes": [
+        "EXCEPTION"
+      ],
+      "sample_exceptions": [
+        "DRAFT-002"
+      ],
+      "evidence_age_days": 10,
+      "scenario_score": 12,
+      "scenario_band": "high",
+      "risk_scenario": "An unsupported source citation could mislead a policy reader",
+      "risk_basis": "One authored sample cites an unapproved source; operational consequences are hypothetical and not measured model behavior",
+      "deployment_status": "proposed",
+      "operational_effectiveness": "not assessed",
+      "human_decision": "required; no operational approval recorded",
+      "next_human_action": "Resolve draft/source exception, then perform a separate human review with new evidence"
+    }
+  ],
+  "compensation": {
+    "period": "2026-10-01",
+    "source_rows": 6,
+    "planning_rows": 7,
+    "source_total": "375000.00",
+    "planning_total": "375000.00",
+    "total_delta": "0.00",
+    "totals_match": true,
+    "exception_records": 6,
+    "finding_counts": {
+      "AMOUNT_MISMATCH": 1,
+      "JOB_CODE_MISMATCH": 1,
+      "MISSING_ID": 1,
+      "PERIOD_MISMATCH": 1,
+      "PLANNING_DUPLICATE": 1,
+      "UNKNOWN_ID": 1
+    },
+    "transfer_state": "hold for human review",
+    "reviewer": "Compensation Data Reviewer (fictional)",
+    "amount_basis": "Fictional annualized USD amounts for schema reconciliation only; no real salaries, market benchmarks or pay recommendations",
+    "details": [
+      {
+        "record_id": "SYN-001",
+        "source_lines": [
+          2
+        ],
+        "planning_lines": [
+          2
+        ],
+        "source_count": 1,
+        "planning_count": 1,
+        "source_amount_sum": "50000.00",
+        "planning_amount_sum": "50000.00",
+        "codes": [],
+        "human_action": "retain as reconciled data row",
+        "decision_scope": "data quality only; no pay recommendation"
+      },
+      {
+        "record_id": "SYN-002",
+        "source_lines": [
+          3
+        ],
+        "planning_lines": [
+          3,
+          4
+        ],
+        "source_count": 1,
+        "planning_count": 2,
+        "source_amount_sum": "55000.00",
+        "planning_amount_sum": "110000.00",
+        "codes": [
+          "PLANNING_DUPLICATE"
+        ],
+        "human_action": "investigate; authorize any correction and rerun",
+        "decision_scope": "data quality only; no pay recommendation"
+      },
+      {
+        "record_id": "SYN-003",
+        "source_lines": [
+          4
+        ],
+        "planning_lines": [
+          5
+        ],
+        "source_count": 1,
+        "planning_count": 1,
+        "source_amount_sum": "60000.00",
+        "planning_amount_sum": "61000.00",
+        "codes": [
+          "AMOUNT_MISMATCH"
+        ],
+        "human_action": "investigate; authorize any correction and rerun",
+        "decision_scope": "data quality only; no pay recommendation"
+      },
+      {
+        "record_id": "SYN-004",
+        "source_lines": [
+          5
+        ],
+        "planning_lines": [],
+        "source_count": 1,
+        "planning_count": 0,
+        "source_amount_sum": "65000.00",
+        "planning_amount_sum": "0.00",
+        "codes": [
+          "MISSING_ID"
+        ],
+        "human_action": "investigate; authorize any correction and rerun",
+        "decision_scope": "data quality only; no pay recommendation"
+      },
+      {
+        "record_id": "SYN-005",
+        "source_lines": [
+          6
+        ],
+        "planning_lines": [
+          6
+        ],
+        "source_count": 1,
+        "planning_count": 1,
+        "source_amount_sum": "70000.00",
+        "planning_amount_sum": "70000.00",
+        "codes": [
+          "JOB_CODE_MISMATCH"
+        ],
+        "human_action": "investigate; authorize any correction and rerun",
+        "decision_scope": "data quality only; no pay recommendation"
+      },
+      {
+        "record_id": "SYN-006",
+        "source_lines": [
+          7
+        ],
+        "planning_lines": [
+          7
+        ],
+        "source_count": 1,
+        "planning_count": 1,
+        "source_amount_sum": "75000.00",
+        "planning_amount_sum": "75000.00",
+        "codes": [
+          "PERIOD_MISMATCH"
+        ],
+        "human_action": "investigate; authorize any correction and rerun",
+        "decision_scope": "data quality only; no pay recommendation"
+      },
+      {
+        "record_id": "SYN-999",
+        "source_lines": [],
+        "planning_lines": [
+          8
+        ],
+        "source_count": 0,
+        "planning_count": 1,
+        "source_amount_sum": "0.00",
+        "planning_amount_sum": "9000.00",
+        "codes": [
+          "UNKNOWN_ID"
+        ],
+        "human_action": "investigate; authorize any correction and rerun",
+        "decision_scope": "data quality only; no pay recommendation"
+      }
+    ]
+  },
+  "fixture_sha256": {
+    "ai-approval.json": "8031de98417e2bf2aeaabc0cbf2563428445281d4c9fab411374a6860df8af93",
+    "ai-citations.json": "28add69514acb5348a64b407260d148fc858baf0679e8d05fa4d0b89c3390641",
+    "ai-inventory.csv": "bf81ea28a9a3da4f2f93119c493e9d1bd58439a0c295854cffd0287f88c71432",
+    "case-metadata.json": "6e4210971f1afc3db209522d3d5a25e1c6fd9556b140b8110fbc22ca77b4e748",
+    "comp-manifest.json": "79d8914232d03e9dd855bfbd009ecee3a7156743d544d4d780548d14249d2bc8",
+    "comp-planning.csv": "5b1b200d188684db553437fba071eec564ec14217855249676d9b3241616daef",
+    "comp-source.csv": "50de0f82af97198647edbc83a8bfd37e66d1b696b4e73f37c47ec11ae573b41c"
+  }
+}

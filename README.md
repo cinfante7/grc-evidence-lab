@@ -4,6 +4,14 @@
 
 Harborlight Workspaces is fictional. Every organization, vendor, owner role, record and assessment result is synthetic. This repository is a portfolio demonstration, not employment history, client work, an audit opinion or a compliance certification.
 
+## Focused AI and compensation data cases
+
+[Two synthetic evidence/data-governance work samples](cases/README.md) extend this lab with an AI-tool inventory and compensation-file reconciliation. All new work is AI-assisted independent portfolio work authored in October 2026. The original GRC case below remains intact.
+
+Start with [the new readout](cases/reports/readout.md), [AI inventory](cases/fixtures/ai-inventory.csv), [reconciliation detail](cases/reports/comp-reconciliation.csv), and [Notion/referral companion](cases/notion-referral-case.md). Run python casework.py build after intentional case changes, then python casework.py check. Full branch verification uses python verify.py; it checks both cases and stores current execution evidence in cases/verification-output.txt.
+
+This addition is under review on branch portfolio-ai-comp-cases. It does not establish real AI-tool effectiveness, professional compensation experience or advanced Excel proficiency. The Excel guide contains unexecuted formula examples, and all operational use requires separate human approval.
+
 ## Start here - a three-minute recruiter review
 
 1. Open [the executive summary](reports/executive-summary.md).

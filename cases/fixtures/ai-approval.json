@@ -1,0 +1,13 @@
+{
+  "synthetic": true,
+  "tool_id": "AIT01",
+  "evidence_id": "AIE01",
+  "period_start": "2026-10-01",
+  "period_end": "2026-10-01",
+  "collected_on": "2026-10-02",
+  "approved_boundary": "Public text and authored synthetic examples only",
+  "reviewer": "Governance Reviewer (fictional)",
+  "reviewed": true,
+  "reviewed_on": "2026-10-02",
+  "limitations": "Authored sign-off fixture; no real tool evaluated or approved"
+}

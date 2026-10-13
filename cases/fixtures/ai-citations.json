@@ -1,0 +1,27 @@
+{
+  "synthetic": true,
+  "tool_id": "AIT03",
+  "evidence_id": "AIE03",
+  "period_start": "2026-10-03",
+  "period_end": "2026-10-03",
+  "collected_on": "2026-10-04",
+  "approved_policy_ids": [
+    "POL-001",
+    "POL-002"
+  ],
+  "samples": [
+    {
+      "sample_id": "DRAFT-001",
+      "drafted_on": "2026-10-03",
+      "expected_policy_id": "POL-001",
+      "cited_policy_id": "POL-001"
+    },
+    {
+      "sample_id": "DRAFT-002",
+      "drafted_on": "2026-10-03",
+      "expected_policy_id": "POL-002",
+      "cited_policy_id": "POL-999"
+    }
+  ],
+  "limitations": "Manually authored draft/source pairs, not actual model outputs or a model accuracy benchmark"
+}

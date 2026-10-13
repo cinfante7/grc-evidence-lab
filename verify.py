@@ -23,19 +23,21 @@ class Links(HTMLParser):
             self.hrefs.append(attrs["href"])
 
 def check_links():
-    page = ROOT / "reports/index.html"
-    parser = Links()
-    parser.feed(page.read_text(encoding="utf-8"))
-    for href in parser.hrefs:
-        parsed = urlparse(href)
-        if parsed.scheme:
-            continue
-        if not parsed.path:
-            if parsed.fragment not in parser.ids:
-                raise ValueError("Missing anchor: " + href)
-        elif not (page.parent / unquote(parsed.path)).is_file():
-            raise ValueError("Missing local report link: " + href)
-    return len(parser.hrefs)
+    count = 0
+    for page in (ROOT / "reports/index.html", ROOT / "cases/reports/index.html"):
+        parser = Links()
+        parser.feed(page.read_text(encoding="utf-8"))
+        for href in parser.hrefs:
+            parsed = urlparse(href)
+            if parsed.scheme:
+                continue
+            if not parsed.path:
+                if parsed.fragment not in parser.ids:
+                    raise ValueError("Missing anchor: " + href)
+            elif not (page.parent / unquote(parsed.path)).is_file():
+                raise ValueError("Missing local report link: " + href)
+        count += len(parser.hrefs)
+    return count
 
 def scan():
     # Heuristics only; emits filenames, never matching values.
@@ -65,8 +67,11 @@ def main():
     logs = []
     for command in ([sys.executable, "lab.py", "validate"],
                     [sys.executable, "lab.py", "check"],
+                    [sys.executable, "casework.py", "validate"],
+                    [sys.executable, "casework.py", "check"],
                     [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-v"],
-                    [sys.executable, "lab.py", "check"]):
+                    [sys.executable, "lab.py", "check"],
+                    [sys.executable, "casework.py", "check"]):
         result = subprocess.run(command, cwd=ROOT, text=True, capture_output=True)
         label = "python " + " ".join(command[1:])
         logs.append("$ " + label + "\n" + result.stdout + result.stderr + f"exit_code={result.returncode}\n")
@@ -76,7 +81,7 @@ def main():
     links = check_links()
     files = scan()
     logs.append(f"Local HTML links checked: {links}\nHeuristic content scan: {files} files; no matches.\n")
-    (ROOT / "docs/verification-output.txt").write_text("\n".join(logs), encoding="utf-8")
+    (ROOT / "cases/verification-output.txt").write_text("\n".join(logs), encoding="utf-8")
     print(f"All release checks passed. HTML links: {links}; scanned files: {files}.")
     findings = lab.assess(lab.load())["finding_count"]
     print(f"{findings} synthetic findings remain; these checks do not establish control effectiveness.")
