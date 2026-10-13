@@ -1,0 +1,104 @@
+$ python lab.py validate
+Valid register relationships. Assessment: {"inconclusive": 3, "not_tested": 1, "sample_fail": 1, "sample_pass": 1}
+5 evidence/control findings remain intentionally open.
+Fictional organization and synthetic records. Software checks and sample results do not establish control effectiveness, regulatory compliance or production security.
+exit_code=0
+
+$ python lab.py check
+Valid register relationships. Assessment: {"inconclusive": 3, "not_tested": 1, "sample_fail": 1, "sample_pass": 1}
+5 evidence/control findings remain intentionally open.
+Fictional organization and synthetic records. Software checks and sample results do not establish control effectiveness, regulatory compliance or production security.
+exit_code=0
+
+$ python casework.py validate
+Synthetic case fixtures validated; AI operational review remains pending.
+Compensation exception records: 6; hold for human review.
+AI-assisted October 2026 independent synthetic portfolio work. No real tools, employee records or salaries were used. No hiring, eligibility or pay decisions are made. Fixture checks are not AI effectiveness tests, legal certification or operational approval.
+exit_code=0
+
+$ python casework.py check
+Synthetic case fixtures validated; AI operational review remains pending.
+Compensation exception records: 6; hold for human review.
+AI-assisted October 2026 independent synthetic portfolio work. No real tools, employee records or salaries were used. No hiring, eligibility or pay decisions are made. Fixture checks are not AI effectiveness tests, legal certification or operational approval.
+exit_code=0
+
+$ python -m unittest discover -s tests -v
+test_ai_empty_citation_sample_insufficient (test_casework.CaseworkTests.test_ai_empty_citation_sample_insufficient) ... ok
+test_ai_future_collection_rejected (test_casework.CaseworkTests.test_ai_future_collection_rejected) ... ok
+test_ai_no_operational_status_supported (test_casework.CaseworkTests.test_ai_no_operational_status_supported) ... ok
+test_ai_recent_collection_does_not_refresh_old_period (test_casework.CaseworkTests.test_ai_recent_collection_does_not_refresh_old_period) ... ok
+test_ai_risk_bounds_and_duplicate_identity (test_casework.CaseworkTests.test_ai_risk_bounds_and_duplicate_identity) ... ok
+test_ai_wrong_reviewer_cannot_complete_fixture (test_casework.CaseworkTests.test_ai_wrong_reviewer_cannot_complete_fixture) ... ok
+test_ai_wrong_scope (test_casework.CaseworkTests.test_ai_wrong_scope) ... ok
+test_clean_reconciliation_still_requires_human_review (test_casework.CaseworkTests.test_clean_reconciliation_still_requires_human_review) ... ok
+test_deterministic_outputs_and_nonmutating_drift_detection (test_casework.CaseworkTests.test_deterministic_outputs_and_nonmutating_drift_detection) ... ok
+test_invalid_amounts_rejected (test_casework.CaseworkTests.test_invalid_amounts_rejected) ... ok
+test_matching_totals_still_require_six_record_reviews (test_casework.CaseworkTests.test_matching_totals_still_require_six_record_reviews) ... ok
+test_no_input_amounts_changed (test_casework.CaseworkTests.test_no_input_amounts_changed) ... ok
+test_non_synthetic_row_rejected (test_casework.CaseworkTests.test_non_synthetic_row_rejected) ... ok
+test_personal_or_protected_columns_not_supported (test_casework.CaseworkTests.test_personal_or_protected_columns_not_supported) ... ok
+test_seeded_ai_gaps_and_review_boundary (test_casework.CaseworkTests.test_seeded_ai_gaps_and_review_boundary) ... ok
+test_source_duplicate_and_cost_center_mismatch_visible (test_casework.CaseworkTests.test_source_duplicate_and_cost_center_mismatch_visible) ... ok
+test_unsafe_fixture_path_rejected (test_casework.CaseworkTests.test_unsafe_fixture_path_rejected) ... ok
+test_artifact_provenance_required (test_lab.EvidenceLabTests.test_artifact_provenance_required) ... ok
+test_broken_reference_rejected (test_lab.EvidenceLabTests.test_broken_reference_rejected) ... ok
+test_closure_without_retest_rejected (test_lab.EvidenceLabTests.test_closure_without_retest_rejected) ... ok
+test_cross_link_mismatch_rejected (test_lab.EvidenceLabTests.test_cross_link_mismatch_rejected) ... ok
+test_duplicate_ids_rejected (test_lab.EvidenceLabTests.test_duplicate_ids_rejected) ... ok
+test_empty_sample_cannot_pass (test_lab.EvidenceLabTests.test_empty_sample_cannot_pass) ... ok
+test_fixture_links_valid (test_lab.EvidenceLabTests.test_fixture_links_valid) ... ok
+test_freshness_boundary_inclusive (test_lab.EvidenceLabTests.test_freshness_boundary_inclusive) ... ok
+test_future_collection_rejected (test_lab.EvidenceLabTests.test_future_collection_rejected) ... ok
+test_missing_distinct_from_insufficient (test_lab.EvidenceLabTests.test_missing_distinct_from_insufficient) ... ok
+test_proposed_control_never_passes (test_lab.EvidenceLabTests.test_proposed_control_never_passes) ... ok
+test_report_reconciliation_and_determinism (test_lab.EvidenceLabTests.test_report_reconciliation_and_determinism) ... ok
+test_score_and_bounds_rejected (test_lab.EvidenceLabTests.test_score_and_bounds_rejected) ... ok
+test_scoring_bands_and_reachable_products (test_lab.EvidenceLabTests.test_scoring_bands_and_reachable_products) ... ok
+test_seeded_findings_are_visible (test_lab.EvidenceLabTests.test_seeded_findings_are_visible) ... ok
+test_unsafe_path_rejected (test_lab.EvidenceLabTests.test_unsafe_path_rejected) ... ok
+test_wrong_scope_and_period_distinct (test_lab.EvidenceLabTests.test_wrong_scope_and_period_distinct) ... ok
+test_all_generated_artifacts_checked_without_overwrite (test_regressions.RegressionTests.test_all_generated_artifacts_checked_without_overwrite) ... ok
+test_baseline_test_cannot_be_reused_for_closure (test_regressions.RegressionTests.test_baseline_test_cannot_be_reused_for_closure) ... ok
+test_change_row_outside_population_rejected (test_regressions.RegressionTests.test_change_row_outside_population_rejected) ... ok
+test_closure_before_review_rejected (test_regressions.RegressionTests.test_closure_before_review_rejected) ... ok
+test_dynamic_narrative_after_valid_closure (test_regressions.RegressionTests.test_dynamic_narrative_after_valid_closure) ... ok
+test_failed_new_retest_cannot_close_action (test_regressions.RegressionTests.test_failed_new_retest_cannot_close_action) ... ok
+test_history_deletion_mutation_and_sequence_rejected (test_regressions.RegressionTests.test_history_deletion_mutation_and_sequence_rejected) ... ok
+test_history_snapshot_mutation_rejected (test_regressions.RegressionTests.test_history_snapshot_mutation_rejected) ... ok
+test_missing_completion_rejected (test_regressions.RegressionTests.test_missing_completion_rejected) ... ok
+test_payload_period_cannot_be_relabelled_by_register (test_regressions.RegressionTests.test_payload_period_cannot_be_relabelled_by_register) ... ok
+test_population_before_completion_rejected (test_regressions.RegressionTests.test_population_before_completion_rejected) ... ok
+test_positive_new_retest_preserves_baseline_failure (test_regressions.RegressionTests.test_positive_new_retest_preserves_baseline_failure) ... ok
+test_recent_receipt_does_not_refresh_june_logs (test_regressions.RegressionTests.test_recent_receipt_does_not_refresh_june_logs) ... ok
+test_register_envelope_cannot_refresh_historical_population (test_regressions.RegressionTests.test_register_envelope_cannot_refresh_historical_population) ... ok
+test_retest_before_completion_rejected (test_regressions.RegressionTests.test_retest_before_completion_rejected) ... ok
+test_retroactive_artifact_correction_rejected (test_regressions.RegressionTests.test_retroactive_artifact_correction_rejected) ... ok
+test_review_before_retest_rejected (test_regressions.RegressionTests.test_review_before_retest_rejected) ... ok
+test_review_timestamp_must_match_artifact (test_regressions.RegressionTests.test_review_timestamp_must_match_artifact) ... ok
+test_september_one_mutation_rejected (test_regressions.RegressionTests.test_september_one_mutation_rejected) ... ok
+test_test_before_evidence_collection_rejected (test_regressions.RegressionTests.test_test_before_evidence_collection_rejected) ... ok
+test_undated_population_insufficient (test_regressions.RegressionTests.test_undated_population_insufficient) ... ok
+test_wrong_review_control_rejected (test_regressions.RegressionTests.test_wrong_review_control_rejected) ... ok
+test_wrong_reviewer_event_or_action_rejected (test_regressions.RegressionTests.test_wrong_reviewer_event_or_action_rejected) ... ok
+test_wrong_vendor_payload_rejected (test_regressions.RegressionTests.test_wrong_vendor_payload_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 58 tests in 2.692s
+
+OK
+exit_code=0
+
+$ python lab.py check
+Valid register relationships. Assessment: {"inconclusive": 3, "not_tested": 1, "sample_fail": 1, "sample_pass": 1}
+5 evidence/control findings remain intentionally open.
+Fictional organization and synthetic records. Software checks and sample results do not establish control effectiveness, regulatory compliance or production security.
+exit_code=0
+
+$ python casework.py check
+Synthetic case fixtures validated; AI operational review remains pending.
+Compensation exception records: 6; hold for human review.
+AI-assisted October 2026 independent synthetic portfolio work. No real tools, employee records or salaries were used. No hiring, eligibility or pay decisions are made. Fixture checks are not AI effectiveness tests, legal certification or operational approval.
+exit_code=0
+
+Local HTML links checked: 63
+Heuristic content scan: 49 files; no matches.

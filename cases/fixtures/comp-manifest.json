@@ -1,0 +1,19 @@
+{
+  "synthetic": true,
+  "organization": "Harborlight Workspaces (fictional)",
+  "as_of": "2026-10-13",
+  "period": "2026-10-01",
+  "amount_basis": "Fictional annualized USD amounts for schema reconciliation only; no real salaries, market benchmarks or pay recommendations",
+  "source": "cases/fixtures/comp-source.csv",
+  "planning": "cases/fixtures/comp-planning.csv",
+  "allowed_columns": [
+    "record_id",
+    "period",
+    "job_code",
+    "cost_center",
+    "amount_usd",
+    "synthetic"
+  ],
+  "human_reviewer": "Compensation Data Reviewer (fictional)",
+  "policy": "Hold transfer until exceptions are investigated, source corrections are authorized and a new reconciliation is reviewed"
+}
