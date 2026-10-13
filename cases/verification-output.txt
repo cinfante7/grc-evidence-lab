@@ -31,6 +31,7 @@ test_ai_risk_bounds_and_duplicate_identity (test_casework.CaseworkTests.test_ai_
 test_ai_wrong_reviewer_cannot_complete_fixture (test_casework.CaseworkTests.test_ai_wrong_reviewer_cannot_complete_fixture) ... ok
 test_ai_wrong_scope (test_casework.CaseworkTests.test_ai_wrong_scope) ... ok
 test_clean_reconciliation_still_requires_human_review (test_casework.CaseworkTests.test_clean_reconciliation_still_requires_human_review) ... ok
+test_data_review_declaration_requires_explicit_boolean_true (test_casework.CaseworkTests.test_data_review_declaration_requires_explicit_boolean_true) ... ok
 test_data_review_invalid_future_or_reversed_date_insufficient (test_casework.CaseworkTests.test_data_review_invalid_future_or_reversed_date_insufficient) ... ok
 test_data_review_missing_review_date_insufficient (test_casework.CaseworkTests.test_data_review_missing_review_date_insufficient) ... ok
 test_data_review_missing_reviewer_insufficient (test_casework.CaseworkTests.test_data_review_missing_reviewer_insufficient) ... ok
@@ -88,7 +89,7 @@ test_wrong_reviewer_event_or_action_rejected (test_regressions.RegressionTests.t
 test_wrong_vendor_payload_rejected (test_regressions.RegressionTests.test_wrong_vendor_payload_rejected) ... ok
 
 ----------------------------------------------------------------------
-Ran 63 tests in 2.926s
+Ran 64 tests in 2.851s
 
 OK
 exit_code=0

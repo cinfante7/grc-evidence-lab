@@ -50,11 +50,20 @@ class CaseworkTests(unittest.TestCase):
                 "period_start":"2026-10-01", "period_end":"2026-10-01",
                 "collected_on":"2026-10-04", "reviewed":True,
                 "reviewer":"Data Steward (fictional)", "reviewed_on":"2026-10-03",
-                "handling_terms_declared":"Authored schema-only handling declaration; not real vendor terms"}
+                "handling_terms_declared":True,
+                "handling_review_note":"Authored schema-only handling declaration; not real vendor terms"}
 
     def data_review_result(self, payload):
         self.write("ai-data-review.json", payload)
         return casework.assess_ai(self.inventory,self.metadata,self.root)[1]
+
+    def test_data_review_declaration_requires_explicit_boolean_true(self):
+        for value in ("false", False, None, 1, "reviewed"):
+            with self.subTest(value=value):
+                payload=self.data_review_fixture();payload["handling_terms_declared"]=value
+                self.assertEqual(self.data_review_result(payload)["codes"],["INSUFFICIENT"])
+        payload=self.data_review_fixture();del payload["handling_terms_declared"]
+        self.assertEqual(self.data_review_result(payload)["codes"],["INSUFFICIENT"])
 
     def test_data_review_missing_reviewer_insufficient(self):
         payload=self.data_review_fixture();del payload["reviewer"]

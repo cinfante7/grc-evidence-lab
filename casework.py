@@ -74,8 +74,7 @@ def assess_ai(inventory, metadata, root=ROOT):
                 elif row["gate"] == "data_review":
                     if (payload.get("reviewed") is not True
                             or payload.get("reviewer") != row["owner"]
-                            or not isinstance(payload.get("handling_terms_declared"), str)
-                            or not payload["handling_terms_declared"].strip()):
+                            or payload.get("handling_terms_declared") is not True):
                         codes.append("INSUFFICIENT")
                     try:
                         reviewed = date.fromisoformat(payload.get("reviewed_on"))

@@ -4,7 +4,7 @@ AI-assisted independent synthetic portfolio work, October 2026. Fixed case date:
 
 ## Actual checks
 
-- 63 ordinary automated tests passed: the original 41 plus 22 bounded case tests.
+- 64 ordinary automated tests passed: the original 41 plus 23 bounded case tests.
 - Original ten GRC outputs and five new case outputs reconcile without modifying working outputs.
 - 63 HTML links and anchors across both reports resolve.
 - Heuristic secret/personal-data scan passed; all project text is ASCII.
@@ -19,6 +19,6 @@ AI inventory: one complete authored evidence fixture, one missing data-handling 
 
 Compensation: six source rows, seven planning rows; both fabricated totals are 375000.00 USD. Six synthetic record exceptions remain and transfer is held for human review. The code neither modifies amounts nor makes employment or pay recommendations.
 
-Tests cover incorrect evidence identity, reviewer mismatch, missing/unassigned data-review reviewer, absent/invalid/future/reversed review dates, valid documented data review without operational approval, stale/future evidence, risk bounds, duplicate inventory IDs, prohibited operational approval status, empty citation samples, matching totals with row exceptions, clean data with human review still required, source duplicates, cost-center discrepancies, invalid amounts, unsupported personal/protected fields, non-synthetic rows, unsafe fixture paths, no input mutation and deterministic/nonmutating output checks.
+Tests cover incorrect evidence identity, reviewer mismatch, explicit boolean-true declaration (rejecting string "false", false, missing fields and other truthy values), missing/unassigned data-review reviewer, absent/invalid/future/reversed review dates, valid documented data review without operational approval, stale/future evidence, risk bounds, duplicate inventory IDs, prohibited operational approval status, empty citation samples, matching totals with row exceptions, clean data with human review still required, source duplicates, cost-center discrepancies, invalid amounts, unsupported personal/protected fields, non-synthetic rows, unsafe fixture paths, no input mutation and deterministic/nonmutating output checks.
 
 Passing these tests establishes only that the synthetic checks behave as documented. It does not establish AI effectiveness, legal compliance, secure data handling or experience with an employer's compensation system.
